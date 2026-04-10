@@ -6,6 +6,7 @@ namespace JobMS.Repository;
 public class ApplicationRepository : IApplicationRepository
 {
     // Assuming you have an ApplicationDbContext that inherits from DbContext and has a DbSet<Application>
+
     private readonly ApplicationDbContext _context;
     public ApplicationRepository(ApplicationDbContext context)
     {
