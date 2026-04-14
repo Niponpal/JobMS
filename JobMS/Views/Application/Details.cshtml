@@ -1,0 +1,136 @@
+﻿@model JobMS.Models.Application
+
+@{
+    ViewData["Title"] = "Application Details";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background: linear-gradient(135deg, #141e30, #243b55);
+        color: #fff;
+    }
+
+    .details-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .info-box {
+        background: rgba(255,255,255,0.15);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .label {
+        font-weight: bold;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .value {
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .btn-custom {
+        border-radius: 25px;
+        padding: 8px 20px;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+        <h1>📄 Application Details</h1>
+        <p>View complete applicant information</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 details-card">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-user"></i> Name</div>
+                        <div class="value">@Model.Name</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-id-card"></i> Application ID</div>
+                        <div class="value">@Model.ApplicationId</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-graduation-cap"></i> Degree</div>
+                        <div class="value">@Model.Degree</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-university"></i> University</div>
+                        <div class="value">@Model.University</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-money-bill"></i> Present Salary</div>
+                        <div class="value">@Model.PresentSalary</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-coins"></i> Expected Salary</div>
+                        <div class="value">@Model.ExpectionSalary</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-star"></i> CGPA</div>
+                        <div class="value">@Model.CGPA</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-calendar"></i> Completion Year</div>
+                        <div class="value">@Model.CompletionYear</div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-file"></i> Resume</div>
+                        <div class="value">
+                            @if (!string.IsNullOrEmpty(Model.ResumePath))
+                            {
+                                <a href="@Model.ResumePath" target="_blank" class="btn btn-info btn-sm">
+                                    📄 View Resume
+                                </a>
+                            }
+                            else
+                            {
+                                <span>No Resume Uploaded</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="CreateOrEdit" asp-route-id="@Model.Id" class="btn btn-warning btn-custom">
+                    ✏ Edit
+                </a>
+
+                <a asp-action="Index" class="btn btn-light btn-custom">
+                    🔙 Back
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
