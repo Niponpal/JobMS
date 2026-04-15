@@ -1,4 +1,5 @@
 ﻿using JobMS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobMS.Repository;
@@ -38,6 +39,8 @@ public class JobRepository : IJobRepository
         return jobs;
     }
 
+   
+
     public async Task<Job> GetJobsByIdAsync(long id, CancellationToken cancellationToken)
     {
        var data = await _context.Jobs.FindAsync(id,cancellationToken);
@@ -63,5 +66,17 @@ public class JobRepository : IJobRepository
             return data;
         }
         return null;
+    }
+
+    // This method is intended to return a list of SelectListItem for populating a dropdown in the UI.
+
+    public async Task<IEnumerable<SelectListItem>> GetJobDropdownAsync()
+    {
+        var data = await _context.Jobs.Select(x => new SelectListItem
+        {
+            Text = x.JobTitle,
+            Value = x.Id.ToString()
+        }).ToListAsync();
+        return data;
     }
 }
