@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JobMS.Models.Application>
+@model IEnumerable<JobMS.Models.Application>
 
 @{
     ViewData["Title"] = "Application List";
@@ -25,14 +25,8 @@
         color: #fff;
     }
 
-        .table thead {
-            background: rgba(0,0,0,0.4);
-        }
-
-    .badge-custom {
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
+    .table thead {
+        background: rgba(0,0,0,0.4);
     }
 
     .btn-custom {
@@ -93,17 +87,11 @@
 
                             <td>@item.University</td>
 
-                            <td>
-                                💰 @item.PresentSalary
-                            </td>
+                            <td>💰 @item.PresentSalary</td>
 
-                            <td>
-                                💸 @item.ExpectionSalary
-                            </td>
+                            <td>💸 @item.ExpectionSalary</td>
 
-                            <td>
-                                📅 @item.CompletionYear
-                            </td>
+                            <td>📅 @item.CompletionYear</td>
 
                             <td>
 
@@ -117,9 +105,11 @@
                                     ✏
                                 </a>
 
+                                <!-- ✅ SAFE DELETE -->
                                 <form asp-action="Delete" method="post" class="d-inline">
                                     <input type="hidden" name="id" value="@item.Id" />
-                                    <button type="submit" class="btn btn-danger btn-sm btn-custom"
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm btn-custom"
                                             onclick="return confirm('Are you sure?')">
                                         🗑
                                     </button>
@@ -139,4 +129,3 @@
     </div>
 
 </div>
-

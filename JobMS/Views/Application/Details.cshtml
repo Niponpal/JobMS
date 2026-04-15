@@ -1,4 +1,4 @@
-﻿@model JobMS.Models.Application
+@model JobMS.Models.Application
 
 @{
     ViewData["Title"] = "Application Details";
@@ -115,7 +115,6 @@
                     <div class="info-box">
                         <div class="label"><i class="fa fa-file"></i> Resume</div>
                         <div class="value">
-
                             @if (!string.IsNullOrEmpty(Model.ResumePath))
                             {
                                 <a href="@Model.ResumePath" target="_blank" class="btn btn-info btn-sm">
@@ -126,7 +125,6 @@
                             {
                                 <span>No Resume Uploaded</span>
                             }
-
                         </div>
                     </div>
 
