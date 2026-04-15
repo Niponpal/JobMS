@@ -66,7 +66,7 @@ public class ApplicationRepository : IApplicationRepository
             data.CGPA = application.CGPA;
             data.CompletionYear = application.CompletionYear;
             data.ResumePath = application.ResumePath;
-            data.UserId = application.UserId;
+            //data.UserId = application.UserId;
             data.JobId = application.JobId;
             _context.Applications.Update(data);
             await _context.SaveChangesAsync(cancellationToken);

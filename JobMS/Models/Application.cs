@@ -24,7 +24,7 @@ namespace JobMS.Models
 
         [StringLength(200)]
         public string ResumePath { get; set; }
-        public long UserId { get; set; }
+       // public long UserId { get; set; }
         //public IdentityModel.User User { get; set; }
         public long JobId { get; set; }
         public Job Job { get; set; }

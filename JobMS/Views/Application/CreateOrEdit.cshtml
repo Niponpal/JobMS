@@ -111,11 +111,23 @@
 
                     <!-- 🔥 Best Part (Dropdown from master) -->
                     <div class="col-md-6 mb-3">
-                        <label>Job</label>
+                       @*  <label>Job</label>
                         <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobList">
                             <option value="">-- Select Job --</option>
-                        </select>
+                        </select> *@
+                        <label asp-for="JobId" class="form-label fw-semibold">Book</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text"><i class="bi bi-book"></i></span>
+                            <select asp-for="JobId" class="form-select" asp-items="ViewBag.JobId" required>
+                                <option value="">-- Select Book --</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="JobId" class="text-danger small"></span>
                     </div>
+
+
+                   
+
 
                 </div>
 

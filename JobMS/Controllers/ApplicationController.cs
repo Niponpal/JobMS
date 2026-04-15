@@ -8,10 +8,12 @@ namespace JobMS.Controllers;
 public class ApplicationController : Controller
 {
     private readonly IApplicationRepository _applicationRepository;
+    private readonly IJobRepository _jobRepository;
 
-    public ApplicationController(IApplicationRepository applicationRepository)
+    public ApplicationController(IApplicationRepository applicationRepository, IJobRepository jobRepository)
     {
         _applicationRepository = applicationRepository;
+        _jobRepository = jobRepository;
     }
 
     [HttpGet]
@@ -28,6 +30,7 @@ public class ApplicationController : Controller
     [HttpGet]
     public async Task<IActionResult> CreateOrEdit(long id, CancellationToken cancellationToken)
     {
+           ViewBag.JobId = await _jobRepository.GetJobDropdownAsync();
         if (id == 0)
         {
             return View(new Application());
@@ -45,6 +48,7 @@ public class ApplicationController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
     {
+        ViewBag.JobId = await _jobRepository.GetJobDropdownAsync();
         if (application.Id == 0)
         {
             await _applicationRepository.AddApplicationAsync(application, cancellationToken);
