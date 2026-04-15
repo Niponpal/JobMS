@@ -1,7 +1,7 @@
-@model JobMS.Models.Application
+﻿@model JobMS.Models.Job
 
 @{
-    ViewData["Title"] = "Application Details";
+    ViewData["Title"] = "Job Details";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -39,6 +39,18 @@
         margin-top: 5px;
     }
 
+    .badge-active {
+        background-color: #28a745;
+        padding: 5px 12px;
+        border-radius: 20px;
+    }
+
+    .badge-inactive {
+        background-color: #dc3545;
+        padding: 5px 12px;
+        border-radius: 20px;
+    }
+
     .btn-custom {
         border-radius: 30px;
         padding: 8px 20px;
@@ -53,8 +65,8 @@
 <div class="container mt-5">
 
     <div class="text-center mb-4">
-        <h1 class="title">📄 Application Details</h1>
-        <p>Complete information of the applicant</p>
+        <h1 class="title">💼 Job Details</h1>
+        <p>Complete information about the job post</p>
     </div>
 
     <div class="row justify-content-center">
@@ -65,23 +77,18 @@
                 <div class="col-md-6">
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-user"></i> Name</div>
-                        <div class="value">@Model.Name</div>
+                        <div class="label"><i class="fa fa-id-badge"></i> Job ID</div>
+                        <div class="value">@Model.JobID</div>
                     </div>
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-id-card"></i> Application ID</div>
-                        <div class="value">@Model.ApplicationId</div>
+                        <div class="label"><i class="fa fa-briefcase"></i> Job Title</div>
+                        <div class="value">@Model.JobTitle</div>
                     </div>
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-graduation-cap"></i> Degree</div>
-                        <div class="value">@Model.Degree</div>
-                    </div>
-
-                    <div class="info-box">
-                        <div class="label"><i class="fa fa-university"></i> University</div>
-                        <div class="value">@Model.University</div>
+                        <div class="label"><i class="fa fa-align-left"></i> Description</div>
+                        <div class="value">@Model.Description</div>
                     </div>
 
                 </div>
@@ -89,43 +96,32 @@
                 <div class="col-md-6">
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-money-bill"></i> Present Salary</div>
-                        <div class="value">@Model.PresentSalary</div>
+                        <div class="label"><i class="fa fa-money-bill"></i> Salary Range</div>
+                        <div class="value">@Model.SalaryRange</div>
                     </div>
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-coins"></i> Expected Salary</div>
-                        <div class="value">@Model.ExpectionSalary</div>
+                        <div class="label"><i class="fa fa-calendar"></i> Deadline</div>
+                        <div class="value">@Model.Deadline?.ToString("dd MMM yyyy")</div>
                     </div>
 
                     <div class="info-box">
-                        <div class="label"><i class="fa fa-star"></i> CGPA</div>
-                        <div class="value">@Model.CGPA</div>
-                    </div>
-
-                    <div class="info-box">
-                        <div class="label"><i class="fa fa-calendar"></i> Completion Year</div>
-                        <div class="value">@Model.CompletionYear</div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-12">
-
-                    <div class="info-box">
-                        <div class="label"><i class="fa fa-file"></i> Resume</div>
+                        <div class="label"><i class="fa fa-info-circle"></i> Status</div>
                         <div class="value">
-                            @if (!string.IsNullOrEmpty(Model.ResumePath))
+                            @if (Model.Status == "Active")
                             {
-                                <a href="@Model.ResumePath" target="_blank" class="btn btn-info btn-sm">
-                                    📄 View Resume
-                                </a>
+                                <span class="badge-active">Active</span>
                             }
                             else
                             {
-                                <span>No Resume Uploaded</span>
+                                <span class="badge-inactive">Inactive</span>
                             }
                         </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="label"><i class="fa fa-clock"></i> Created At</div>
+                        <div class="value">@Model.CreatedAt.ToString("dd MMM yyyy")</div>
                     </div>
 
                 </div>
