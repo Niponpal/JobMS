@@ -19,16 +19,16 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
             new Role
             {
                 Id = 2,
-                Name = "EventManager",
-                NormalizedName = "EVENTMANAGER",
-                Description = "Manages events"
+                Name = "Employer",
+                NormalizedName = "EMPLOYER",
+                Description = "Employer job postings"
             },
             new Role
             {
                 Id = 3,
-                Name = "Student",
-                NormalizedName = "STUDENT",
-                Description = "Student user"
+                Name = "Candidate",
+                NormalizedName = "CANDIDATE",
+                Description = "Candidate user"
             }
         );
     }

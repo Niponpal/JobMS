@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using JobMS.Models;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobMS.Auth_IdentityModel;
@@ -7,14 +8,18 @@ namespace JobMS.Auth_IdentityModel;
 [Table("Users")]
 public class User : IdentityUser<long>
 {
-    public string FullName { get; set; } = string.Empty;
-    public string Phone { get; set; } = string.Empty;
-    public string Address { get; set; } = string.Empty;
+    public string? UserId { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public string? ImageUrl { get; set; }
+ 
     public DateTime RegisterDate { get; set; }
     public long CreatedBy { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
     public long? UpdatedBy { get; set; }
     public DateTimeOffset? UpdatedDate { get; set; }
+
+    // Navigation property for related applications
+    public ICollection<Application> Applications { get; set; } = new HashSet<Application>();
 }
 
 // ------------------ Roles ------------------
@@ -31,6 +36,8 @@ public class Role : IdentityRole<long>
     public DateTimeOffset CreatedDateUtc { get; set; }
     public long? UpdatedBy { get; set; }
     public DateTimeOffset? UpdatedDateUtc { get; set; }
+
+
 }
 
 // ------------------ User Roles ------------------
