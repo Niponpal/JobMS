@@ -21,7 +21,7 @@ namespace JobMS.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+Role", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+RoleClaim", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+User", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,6 +111,12 @@ namespace JobMS.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -145,11 +151,20 @@ namespace JobMS.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -171,7 +186,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserClaim", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,7 +210,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserLogin", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -216,7 +231,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserRole", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserRole", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -231,7 +246,7 @@ namespace JobMS.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserToken", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserToken", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -298,7 +313,7 @@ namespace JobMS.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -352,51 +367,51 @@ namespace JobMS.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+RoleClaim", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.RoleClaim", b =>
                 {
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+Role", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserClaim", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserClaim", b =>
                 {
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+User", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserLogin", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserLogin", b =>
                 {
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+User", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserRole", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserRole", b =>
                 {
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+Role", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+User", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+UserToken", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.UserToken", b =>
                 {
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+User", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -411,14 +426,18 @@ namespace JobMS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JobMS.AuthIdentityModel.IdentityModel+User", null)
+                    b.HasOne("JobMS.Auth_IdentityModel.User", "User")
                         .WithMany("Applications")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Job");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobMS.AuthIdentityModel.IdentityModel+User", b =>
+            modelBuilder.Entity("JobMS.Auth_IdentityModel.User", b =>
                 {
                     b.Navigation("Applications");
                 });
