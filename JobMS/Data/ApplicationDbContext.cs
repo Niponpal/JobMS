@@ -1,20 +1,18 @@
-﻿using JobMS.AuthIdentityModel;
-using JobMS.AuthIdentityModel;
+﻿using JobMS.Auth_IdentityModel;
 using JobMS.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Reflection;
 
 public class ApplicationDbContext : IdentityDbContext<
-    IdentityModel.User,
-    IdentityModel.Role,
+    User,
+    Role,
     long,
-    IdentityModel.UserClaim,
-    IdentityModel.UserRole,
-    IdentityModel.UserLogin,
-    IdentityModel.RoleClaim,
-    IdentityModel.UserToken>
+    UserClaim,
+    UserRole,
+    UserLogin,
+    RoleClaim,
+    UserToken>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -28,15 +26,9 @@ public class ApplicationDbContext : IdentityDbContext<
     {
         base.OnConfiguring(optionsBuilder);
 
-        // Ignore pending model warnings
         optionsBuilder.ConfigureWarnings(warnings =>
             warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 
-        // Debug logging
         optionsBuilder.LogTo(Console.WriteLine);
-        optionsBuilder.UseLoggerFactory(new LoggerFactory(new[] {
-                new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
-            }));
     }
-
 }

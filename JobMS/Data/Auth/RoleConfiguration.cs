@@ -1,28 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JobMS.Auth_IdentityModel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static JobMS.AuthIdentityModel.IdentityModel;
+    
+namespace JobMS.Data.Configuration;
 
-namespace JobMS.Data.Auth
+public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<Role>
+    public void Configure(EntityTypeBuilder<Role> builder)
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
-        {
-            builder.HasData(new Role
+        builder.HasData(
+            new Role
             {
                 Id = 1,
                 Name = "Administrator",
                 NormalizedName = "ADMINISTRATOR",
-                Description = "Default role assigned to all User."
-
-            }, new Role
+                Description = "System Administrator"
+            },
+            new Role
             {
                 Id = 2,
-                Name = "User",
-                NormalizedName = "User",
-                Description = "Default role assigned to all Users."
-            });
-        }
+                Name = "EventManager",
+                NormalizedName = "EVENTMANAGER",
+                Description = "Manages events"
+            },
+            new Role
+            {
+                Id = 3,
+                Name = "Student",
+                NormalizedName = "STUDENT",
+                Description = "Student user"
+            }
+        );
     }
-
-    }
+}
