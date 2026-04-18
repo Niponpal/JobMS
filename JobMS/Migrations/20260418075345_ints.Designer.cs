@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260418074030_ints")]
+    [Migration("20260418075345_ints")]
     partial class ints
     {
         /// <inheritdoc />
@@ -71,6 +71,38 @@ namespace JobMS.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedBy = 0L,
+                            CreatedDateUtc = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Description = "System Administrator",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR",
+                            StatusId = 0
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedBy = 0L,
+                            CreatedDateUtc = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Description = "Employer job postings",
+                            Name = "Employer",
+                            NormalizedName = "EMPLOYER",
+                            StatusId = 0
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedBy = 0L,
+                            CreatedDateUtc = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Description = "Candidate user",
+                            Name = "Candidate",
+                            NormalizedName = "CANDIDATE",
+                            StatusId = 0
+                        });
                 });
 
             modelBuilder.Entity("JobMS.Auth_IdentityModel.RoleClaim", b =>
@@ -187,6 +219,68 @@ namespace JobMS.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a7043c29-57dd-4e1f-985d-d4223298c90c",
+                            CreatedAt = new DateTime(2026, 4, 18, 13, 53, 44, 423, DateTimeKind.Local).AddTicks(183),
+                            CreatedBy = 0L,
+                            CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOtAi6xqajGiFbeJsaODQs8LhqpN+Wdp8ecBisC+vlA3UCT+BLGz6SpxFJsNByX/vA==",
+                            PhoneNumberConfirmed = false,
+                            RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "42875ef8-b475-4133-8fc7-ca4b50323bbf",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@localhost.com"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "827e84a2-5297-4373-9a63-37e4ef4a2a08",
+                            CreatedAt = new DateTime(2026, 4, 18, 13, 53, 44, 475, DateTimeKind.Local).AddTicks(7399),
+                            CreatedBy = 0L,
+                            CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Email = "employer@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMPLOYER@LOCALHOST.COM",
+                            NormalizedUserName = "EMPLOYER@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENU+/qInRRIvzhnDHFqA3YuhVrruDWkW7FMCXX7FwmkEZ81Hpk3ksVrCRK4s74Q0eA==",
+                            PhoneNumberConfirmed = false,
+                            RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "24618b6b-a426-42f6-a3f0-4c9799f85e07",
+                            TwoFactorEnabled = false,
+                            UserName = "employer@localhost.com"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "599debcc-0295-4c8c-844c-6bcbd387169b",
+                            CreatedAt = new DateTime(2026, 4, 18, 13, 53, 44, 523, DateTimeKind.Local).AddTicks(4200),
+                            CreatedBy = 0L,
+                            CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Email = "candidate@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "CANDIDATE@LOCALHOST.COM",
+                            NormalizedUserName = "CANDIDATE@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBQCxUkSuS8mqblmMCIadZr7jbdiv5IsEtQV0Klkyp0h2ysrF7biWPY8cc+5Z+0ylA==",
+                            PhoneNumberConfirmed = false,
+                            RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "020f785c-387b-4b58-91dc-cb0e58b3c3ae",
+                            TwoFactorEnabled = false,
+                            UserName = "candidate@localhost.com"
+                        });
                 });
 
             modelBuilder.Entity("JobMS.Auth_IdentityModel.UserClaim", b =>
@@ -247,6 +341,23 @@ namespace JobMS.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1L,
+                            RoleId = 1L
+                        },
+                        new
+                        {
+                            UserId = 2L,
+                            RoleId = 2L
+                        },
+                        new
+                        {
+                            UserId = 3L,
+                            RoleId = 3L
+                        });
                 });
 
             modelBuilder.Entity("JobMS.Auth_IdentityModel.UserToken", b =>
