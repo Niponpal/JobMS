@@ -1,5 +1,9 @@
+using JobMS;
+using JobMS.Auth_IdentityModel;
 using JobMS.Data;
+using JobMS.Helper;
 using JobMS.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +18,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // ? Dependency Injection
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
+
+
+
+// Add Identity with custom classes and long key
+builder.Services.AddIdentity<User, Role>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+
+builder.Services.AddTransient<ISignInHelper, SignInHelper>();
 
 var app = builder.Build();
 

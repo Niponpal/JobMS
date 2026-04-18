@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260416063054_createat")]
-    partial class createat
+    [Migration("20260418074030_ints")]
+    partial class ints
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

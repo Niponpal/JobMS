@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobMS.Migrations
 {
     /// <inheritdoc />
-    public partial class createat : Migration
+    public partial class ints : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

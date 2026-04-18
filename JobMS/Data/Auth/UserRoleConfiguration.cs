@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using static JobMS.Auth_IdentityModel.IdentityModel;
-
-
-
+using JobMS.Auth_IdentityModel;
 
 namespace JobMS.Data.Configuration;
 
@@ -26,4 +23,3 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
         });
     }
 }
-
