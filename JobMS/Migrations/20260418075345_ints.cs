@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace JobMS.Migrations
 {
     /// <inheritdoc />
@@ -224,6 +226,36 @@ namespace JobMS.Migrations
                         principalTable: "Jobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "CreatedBy", "CreatedDateUtc", "Description", "Name", "NormalizedName", "StatusId", "UpdatedBy", "UpdatedDateUtc" },
+                values: new object[,]
+                {
+                    { 1L, null, 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "System Administrator", "Administrator", "ADMINISTRATOR", 0, null, null },
+                    { 2L, null, 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Employer job postings", "Employer", "EMPLOYER", 0, null, null },
+                    { 3L, null, 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Candidate user", "Candidate", "CANDIDATE", 0, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "CreatedBy", "CreatedDate", "Email", "EmailConfirmed", "ImageUrl", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisterDate", "SecurityStamp", "TwoFactorEnabled", "UpdatedBy", "UpdatedDate", "UserId", "UserName" },
+                values: new object[,]
+                {
+                    { 1L, 0, "a7043c29-57dd-4e1f-985d-d4223298c90c", new DateTime(2026, 4, 18, 13, 53, 44, 423, DateTimeKind.Local).AddTicks(183), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, null, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOtAi6xqajGiFbeJsaODQs8LhqpN+Wdp8ecBisC+vlA3UCT+BLGz6SpxFJsNByX/vA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "42875ef8-b475-4133-8fc7-ca4b50323bbf", false, null, null, null, "admin@localhost.com" },
+                    { 2L, 0, "827e84a2-5297-4373-9a63-37e4ef4a2a08", new DateTime(2026, 4, 18, 13, 53, 44, 475, DateTimeKind.Local).AddTicks(7399), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employer@localhost.com", true, null, false, null, "EMPLOYER@LOCALHOST.COM", "EMPLOYER@LOCALHOST.COM", "AQAAAAIAAYagAAAAENU+/qInRRIvzhnDHFqA3YuhVrruDWkW7FMCXX7FwmkEZ81Hpk3ksVrCRK4s74Q0eA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "24618b6b-a426-42f6-a3f0-4c9799f85e07", false, null, null, null, "employer@localhost.com" },
+                    { 3L, 0, "599debcc-0295-4c8c-844c-6bcbd387169b", new DateTime(2026, 4, 18, 13, 53, 44, 523, DateTimeKind.Local).AddTicks(4200), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "candidate@localhost.com", true, null, false, null, "CANDIDATE@LOCALHOST.COM", "CANDIDATE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEBQCxUkSuS8mqblmMCIadZr7jbdiv5IsEtQV0Klkyp0h2ysrF7biWPY8cc+5Z+0ylA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "020f785c-387b-4b58-91dc-cb0e58b3c3ae", false, null, null, null, "candidate@localhost.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { 1L, 1L },
+                    { 2L, 2L },
+                    { 3L, 3L }
                 });
 
             migrationBuilder.CreateIndex(
