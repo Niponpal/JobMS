@@ -9,12 +9,18 @@ namespace JobMS.Models.Auth
         public string Name { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string PasswordHash { get; set; }
+        [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6)]
+        public string Password { get; set; }
+
+        //[Required]
+        //[DataType(DataType.Password)]
+        //[Compare("Password", ErrorMessage = "Password does not match")]
+        //public string ConfirmPassword { get; set; }
 
         [StringLength(20)]
         public string PhoneNumber { get; set; }
