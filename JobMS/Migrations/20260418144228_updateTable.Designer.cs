@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260418144228_updateTable")]
+    partial class updateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,8 +225,8 @@ namespace JobMS.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cbf0e259-b8f9-4bc8-b1af-87d7227dad33",
-                            CreatedAt = new DateTime(2026, 4, 18, 22, 15, 44, 871, DateTimeKind.Local).AddTicks(7717),
+                            ConcurrencyStamp = "ba1d1d6b-2400-446f-b6b3-f21670f4b9f5",
+                            CreatedAt = new DateTime(2026, 4, 18, 20, 42, 27, 502, DateTimeKind.Local).AddTicks(5666),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
@@ -231,10 +234,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFpLUnXmFzCCFzkvR5DMkKwOmRrY5xvPU2+0BvVi8+rSM5ib9QL3hMkhMnySRWNB7A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEALVSxzlx7bmuk+kGdYszfHrTLgi7d1HIFXObWr1XeC2s4Il/mwdw0kj+B3v1bkMQ==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "1ba2e3f5-e3a7-4a88-95c3-982b3d182f3b",
+                            SecurityStamp = "238974d4-caf5-43fe-8feb-879317780685",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -242,8 +245,8 @@ namespace JobMS.Migrations
                         {
                             Id = 2L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16c8b26d-f107-47e4-bf01-99132879c7f0",
-                            CreatedAt = new DateTime(2026, 4, 18, 22, 15, 44, 923, DateTimeKind.Local).AddTicks(845),
+                            ConcurrencyStamp = "6ff26379-989b-498d-98b3-2d5a299420ac",
+                            CreatedAt = new DateTime(2026, 4, 18, 20, 42, 27, 552, DateTimeKind.Local).AddTicks(7030),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "employer@localhost.com",
@@ -251,10 +254,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYER@LOCALHOST.COM",
                             NormalizedUserName = "EMPLOYER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFKp2ePqJtiWAMOd5HbdE+LbztYaspU5g0o8Zni1oeWSIA2D4RlxCTfgSkyzt1dmNg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGwpapTUW1E3+szbXJS5hZI8R3aIHwO/7R3oDz2nOwnDVbZu+kMzf0V+6L60X/uJYA==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "f76345ab-3aeb-4edf-8202-9f1fd43ac002",
+                            SecurityStamp = "d0afe315-f37f-4bf0-aa7b-ebcaf5266ef9",
                             TwoFactorEnabled = false,
                             UserName = "employer@localhost.com"
                         },
@@ -262,8 +265,8 @@ namespace JobMS.Migrations
                         {
                             Id = 3L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af3d2fdb-eca5-44f6-8a3a-e93a905adb65",
-                            CreatedAt = new DateTime(2026, 4, 18, 22, 15, 44, 970, DateTimeKind.Local).AddTicks(4373),
+                            ConcurrencyStamp = "3b6379a6-dabf-4d6b-8dc2-5c33584b6396",
+                            CreatedAt = new DateTime(2026, 4, 18, 20, 42, 27, 599, DateTimeKind.Local).AddTicks(3529),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "candidate@localhost.com",
@@ -271,10 +274,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CANDIDATE@LOCALHOST.COM",
                             NormalizedUserName = "CANDIDATE@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHrm4H2XkOXcWoedGvqd40Z0CupXOrfYETAdKF7i8VxiJakMMQfrJEyFLSv2vqakyw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI3YhqapzPYgSBARY8NjhJolYdE5DR9E8DP6ld9nV9XsiDAqqGTbIoh1rnMpiG62RQ==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "b4438468-c72f-435a-a049-d27c95ab81da",
+                            SecurityStamp = "81564895-8c9c-4a33-b283-c43e312cedee",
                             TwoFactorEnabled = false,
                             UserName = "candidate@localhost.com"
                         });

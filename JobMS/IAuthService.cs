@@ -32,7 +32,7 @@ public class AuthService : IAuthService
 
         var user = new User
         {
-            UserName = request.Name,
+            UserName = request.Email,
             Email = request.Email,
             PhoneNumber = request.PhoneNumber,
 
@@ -45,7 +45,7 @@ public class AuthService : IAuthService
         };
 
         // ✅ fix: PasswordHash use
-        var result = await _userManager.CreateAsync(user, request.PasswordHash);
+        var result = await _userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded)
         {
@@ -56,7 +56,7 @@ public class AuthService : IAuthService
             };
         }
 
-        await _userManager.AddToRoleAsync(user, "Student");
+        await _userManager.AddToRoleAsync(user, "Candidate");
 
         return new RegistrationResponse
         {

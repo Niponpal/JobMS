@@ -1,4 +1,4 @@
-using JobMS;
+﻿using JobMS;
 using JobMS.Auth_IdentityModel;
 using JobMS.Data;
 using JobMS.Helper;
@@ -51,6 +51,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();   // Static files (css, js, images)
 app.UseRouting();
+
+app.UseAuthentication();   // ✅ MUST
 app.UseAuthorization();
 
 // ? Routing

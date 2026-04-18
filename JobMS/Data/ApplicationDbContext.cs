@@ -4,6 +4,7 @@ using JobMS.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Reflection;
 
 public class ApplicationDbContext : IdentityDbContext<
     User,
@@ -27,10 +28,14 @@ public class ApplicationDbContext : IdentityDbContext<
     {
         base.OnModelCreating(modelBuilder);
 
-        // ✅ SEED CONFIGURATION APPLY
-        modelBuilder.ApplyConfiguration(new RoleConfiguration());
-        modelBuilder.ApplyConfiguration(new UserConfiguration());
-        modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+        //// ✅ SEED CONFIGURATION APPLY
+        //modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        //modelBuilder.ApplyConfiguration(new UserConfiguration());
+        //modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+        // ✅ AUTOMATICALLY APPLY ALL CONFIGURATIONS IN THE ASSEMBLY
+
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
