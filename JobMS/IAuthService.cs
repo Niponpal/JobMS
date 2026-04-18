@@ -1,70 +1,67 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using JobMS.Auth_IdentityModel;
+using JobMS.Models.Auth;
+using Microsoft.AspNetCore.Identity;
 
-namespace JobMS.Auth_IdentityModel;
+namespace JobMS;
 
-public class IdentityModel
+public interface IAuthService
 {
-    // ------------------ User Table ------------------
-    [Table("Users")]
-    public class User : IdentityUser<long>
-    {
-        public string FullName { get; set; } = string.Empty;
-        public string Phone { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
-        public DateTime RegisterDate { get; set; }
-        public long CreatedBy { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
-        public long? UpdatedBy { get; set; }
-        public DateTimeOffset? UpdatedDate { get; set; }
+    Task<RegistrationResponse> Register(RegisterViewModel model);
+}
 
+public class AuthService : IAuthService
+{
+    private readonly UserManager<User> _userManager;
+
+    public AuthService(UserManager<User> userManager)
+    {
+        _userManager = userManager;
     }
 
-    // ------------------ Roles ------------------
-    [Table("Roles")]
-    public class Role : IdentityRole<long>
+    public async Task<RegistrationResponse> Register(RegisterViewModel request)
     {
-        public Role() { }
-        public Role(string name) { Name = name; }
+        var existingUser = await _userManager.FindByEmailAsync(request.Email);
+        if (existingUser != null)
+        {
+            return new RegistrationResponse
+            {
+                Success = false,
+                Errors = new() { $"Email '{request.Email}' is already registered." }
+            };
+        }
 
-        public int StatusId { get; set; }
-        public string Description { get; set; }
+        var user = new User
+        {
+            UserName = request.Name,
+            Email = request.Email,
+            PhoneNumber = request.PhoneNumber,
 
-        public long CreatedBy { get; set; }
-        public DateTimeOffset CreatedDateUtc { get; set; }
-        public long? UpdatedBy { get; set; }
-        public DateTimeOffset? UpdatedDateUtc { get; set; }
-    }
+            // ✅ fix: ImageUrl string, so null রাখলাম (upload পরে handle করবা)
+            ImageUrl = null,
 
-    // ------------------ User Roles ------------------
-    [Table("UserRoles")]
-    public class UserRole : IdentityUserRole<long>
-    {
-    }
+            CreatedAt = DateTime.Now,
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
 
-    // ------------------ User Claims ------------------
-    [Table("UserClaims")]
-    public class UserClaim : IdentityUserClaim<long>
-    {
-    }
+        // ✅ fix: PasswordHash use
+        var result = await _userManager.CreateAsync(user, request.PasswordHash);
 
-    // ------------------ User Logins ------------------
-    // ❌ এখানে আর কোন Key / ForeignKey override করা যাবে না
-    // IdentityUserLogin-এর PK = (LoginProvider, ProviderKey)
-    [Table("UserLogins")]
-    public class UserLogin : IdentityUserLogin<long>
-    {
-    }
+        if (!result.Succeeded)
+        {
+            return new RegistrationResponse
+            {
+                Success = false,
+                Errors = result.Errors.Select(e => e.Description).ToList()
+            };
+        }
 
-    // ------------------ Role Claims ------------------
-    [Table("RoleClaims")]
-    public class RoleClaim : IdentityRoleClaim<long>
-    {
-    }
+        await _userManager.AddToRoleAsync(user, "Student");
 
-    // ------------------ User Tokens ------------------
-    [Table("UserTokens")]
-    public class UserToken : IdentityUserToken<long>
-    {
+        return new RegistrationResponse
+        {
+            Success = true,
+            UserId = user.Id.ToString() // ✅ fix long → string
+        };
     }
 }
