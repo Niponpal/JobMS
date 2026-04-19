@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid py-5">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
+        <div>
+            <h1 class="display-6 fw-bold text-dark mb-1">JobMS Dashboard</h1>
+            <p class="text-muted fs-5 mb-0">Real-time recruitment overview • April 2026</p>
+        </div>
+        <a asp-controller="Jobs" asp-action="Create"
+           class="btn btn-lg px-5 shadow-sm text-white"
+           style="background: linear-gradient(135deg, #4F46E5, #7C3AED); border: none;">
+            <i class="fas fa-plus me-2"></i> Post New Job
+        </a>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card d-flex align-items-center p-4 shadow-sm">
+                <div class="stat-icon-wrapper me-4">
+                    <i class="fas fa-briefcase stat-icon" style="color: #4F46E5;"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="stat-label">Total Jobs</div>
+                    <div class="stat-value fw-bold">@ViewBag.TotalJobs</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card d-flex align-items-center p-4 shadow-sm">
+                <div class="stat-icon-wrapper me-4">
+                    <i class="fas fa-file-alt stat-icon" style="color: #14B8A6;"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="stat-label">Total Applications</div>
+                    <div class="stat-value fw-bold">@ViewBag.TotalApplications</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card d-flex align-items-center p-4 shadow-sm">
+                <div class="stat-icon-wrapper me-4">
+                    <i class="fas fa-check-circle stat-icon" style="color: #10B981;"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="stat-label">Active Jobs</div>
+                    <div class="stat-value fw-bold text-success">@ViewBag.ActiveJobs</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="stat-card d-flex align-items-center p-4 shadow-sm">
+                <div class="stat-icon-wrapper me-4">
+                    <i class="fas fa-chart-line stat-icon" style="color: #7C3AED;"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="stat-label">Avg. Applications / Job</div>
+                    <div class="stat-value fw-bold">@ViewBag.AvgApplications</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Applications Trend Chart -->
+        <div class="col-lg-8">
+            <div class="chart-card p-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h5 class="chart-title mb-1">Applications Trend</h5>
+                        <small class="text-muted">Last 30 days performance</small>
+                    </div>
+                    <i class="fas fa-chart-line fs-3" style="color: #14B8A6;"></i>
+                </div>
+                <div style="height: 280px;">
+                    <canvas id="applicationsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Jobs -->
+        <div class="col-lg-4">
+            <div class="chart-card p-4 shadow-sm h-100">
+                <h5 class="chart-title mb-3">Recently Posted Jobs</h5>
+
+                @if (ViewBag.RecentJobs != null && ((List<JobMS.Models.Job>)ViewBag.RecentJobs).Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var job in (List<JobMS.Models.Job>)ViewBag.RecentJobs)
+                        {
+                            <div class="list-group-item border-0 py-3 px-2 d-flex justify-content-between align-items-center">
+                                <div class="flex-grow-1">
+                                    <strong class="d-block">@job.JobTitle</strong>
+                                    <small class="text-muted">@job.CreatedAt.ToString("dd MMM yyyy")</small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 fs-6"
+                                      style="background-color: @(job.Status == "Active" ? "#14B8A6" : "#6B7280"); color: white;">
+                                    @job.Status
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center py-5">No jobs posted yet.</p>
+                }
+
+                <div class="text-center mt-auto pt-3">
+                    <a asp-controller="Jobs" asp-action="Index"
+                       class="text-decoration-none fw-medium" style="color: #4F46E5;">
+                        View All Jobs →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Applications -->
+    <div class="recent-reg-table mt-5 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center px-4 pt-4 pb-3 border-bottom">
+            <h5 class="fw-semibold mb-0">
+                <i class="fas fa-file-alt me-2"></i> Recent Applications
+            </h5>
+            <a asp-controller="Applications" asp-action="Index"
+               class="btn btn-sm btn-outline-primary">View All Applications</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Applied For</th>
+                        <th>Expected Salary</th>
+                        <th>Degree</th>
+                        <th>Date</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.RecentApplications != null && ((List<JobMS.Models.Application>)ViewBag.RecentApplications).Any())
+                    {
+                        foreach (var app in (List<JobMS.Models.Application>)ViewBag.RecentApplications)
+                        {
+                            <tr>
+                                <td><strong>@app.Name</strong></td>
+                                <td>@(app.Job?.JobTitle ?? "—")</td>
+                                <td class="fw-medium">@(app.ExpectionSalary?.ToString("C0") ?? "—")</td>
+                                <td>@(app.Degree ?? "—")</td>
+                                <td>@(app.Job?.CreatedAt.ToString("dd MMM yyyy") ?? "—")</td>
+                                <td class="text-center">
+                                    <a asp-controller="Applications" asp-action="Details" asp-route-id="@app.Id"
+                                       class="btn btn-sm text-white px-3 py-1" style="background: #4F46E5;">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-5">No applications received yet.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        // Premium Applications Trend Chart
+        new Chart(document.getElementById('applicationsChart'), {
+            type: 'line',
+            data: {
+                labels: ['Apr 1', 'Apr 5', 'Apr 10', 'Apr 15', 'Apr 19'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [18, 35, 52, 71, 94],
+                    borderColor: '#14B8A6',
+                    backgroundColor: 'rgba(20, 184, 166, 0.10)',
+                    tension: 0.4,
+                    borderWidth: 4,
+                    pointRadius: 5,
+                    pointHoverRadius: 8,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b' } },
+                    x: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b' } }
+                }
+            }
+        });
+    </script>
+}

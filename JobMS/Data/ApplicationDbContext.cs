@@ -28,6 +28,17 @@ public class ApplicationDbContext : IdentityDbContext<
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Application>()
+        .HasOne(a => a.User)
+        .WithMany()
+        .HasForeignKey(a => a.UserId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Application>()
+            .HasOne(a => a.Job)
+            .WithMany(j => j.Applications)
+            .HasForeignKey(a => a.JobId);
+
         //// ✅ SEED CONFIGURATION APPLY
         //modelBuilder.ApplyConfiguration(new RoleConfiguration());
         //modelBuilder.ApplyConfiguration(new UserConfiguration());
