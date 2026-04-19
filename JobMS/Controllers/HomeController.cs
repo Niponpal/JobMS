@@ -1,21 +1,35 @@
-using System.Diagnostics;
+using JobMS.Helper;
 using JobMS.Models;
+using JobMS.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace JobMS.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IJobRepository _jobRepository;
+        private readonly ISignInHelper _signInHelper;
 
-        public HomeController(ILogger<HomeController> logger)
+
+
+        public HomeController(ILogger<HomeController> logger, IJobRepository jobRepository, ISignInHelper signInHelper)
         {
             _logger = logger;
+            _jobRepository = jobRepository;
+            _signInHelper = signInHelper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
+            var alljobs = await _jobRepository.GetAllJobsAsync(cancellationToken);
+            if (alljobs != null)
+            {
+                return View(alljobs);
+            }
+            return NotFound();
         }
 
         public IActionResult Privacy()
