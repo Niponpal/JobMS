@@ -1,5 +1,7 @@
+using JobMS.Auth_IdentityModel;
 using JobMS.Models;
 using JobMS.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,11 +11,13 @@ public class ApplicationController : Controller
 {
     private readonly IApplicationRepository _applicationRepository;
     private readonly IJobRepository _jobRepository;
+    private readonly UserManager<User> _userManager;
 
-    public ApplicationController(IApplicationRepository applicationRepository, IJobRepository jobRepository)
+    public ApplicationController(IApplicationRepository applicationRepository, IJobRepository jobRepository, UserManager<User> userManager)
     {
         _applicationRepository = applicationRepository;
         _jobRepository = jobRepository;
+        _userManager = userManager;
     }
 
     [HttpGet]
@@ -44,11 +48,20 @@ public class ApplicationController : Controller
 
         return View(data);
     }
-
     [HttpPost]
     public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
     {
         ViewBag.JobId = await _jobRepository.GetJobDropdownAsync();
+
+        var user = await _userManager.GetUserAsync(User);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        application.UserId = user.Id; // ? SAFE LONG TYPE
+
         if (application.Id == 0)
         {
             await _applicationRepository.AddApplicationAsync(application, cancellationToken);

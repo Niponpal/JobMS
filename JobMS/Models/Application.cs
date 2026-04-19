@@ -30,10 +30,10 @@ namespace JobMS.Models
         [StringLength(200)]
         public string ResumePath { get; set; }
 
-        // ✅ Correct FK
+        // ✅ FIXED FK TYPE
         public long UserId { get; set; }
 
-        // ✅ Correct Navigation
+        // Navigation
         public User User { get; set; }
 
         public long JobId { get; set; }
