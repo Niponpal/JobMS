@@ -1,131 +1,324 @@
 @model IEnumerable<JobMS.Models.Application>
-
 @{
-    ViewData["Title"] = "Application List";
+    ViewData["Title"] = "Application Dashboard";
+    Layout = "_Layout";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-<style>
-    body {
-        background: linear-gradient(135deg, #1f1c2c, #928dab);
-        color: #fff;
-    }
-
-    .glass-card {
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    .table {
-        color: #fff;
-    }
-
-    .table thead {
-        background: rgba(0,0,0,0.4);
-    }
-
-    .btn-custom {
-        border-radius: 25px;
-        padding: 5px 15px;
-    }
-
-    .title {
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
-</style>
-
-<div class="container mt-5">
-
-    <div class="text-center mb-4">
-        <h1 class="title">📋 Application Dashboard</h1>
-        <p>Manage all job applications in one place</p>
-    </div>
-
-    <div class="glass-card">
-
-        <div class="d-flex justify-content-between mb-3">
-            <h4>All Applications</h4>
-
-            <a asp-action="CreateOrEdit" class="btn btn-success btn-custom">
-                ➕ New Application
-            </a>
+<div class="container py-5 position-relative" style="z-index: 2;">
+    <div class="glass-container">
+        <!-- Header -->
+        <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="mb-1">
+                    <i class="fas fa-clipboard-list me-3" style="color: var(--teal);"></i>
+                    Application Dashboard
+                </h1>
+                <p class="text-muted mb-0">Track and manage candidate applications efficiently</p>
+            </div>
+            <div class="mt-3 mt-sm-0">
+                <a asp-action="CreateOrEdit" class="btn btn-add-job text-white">
+                    <i class="fas fa-plus-circle me-2"></i> New Application
+                </a>
+            </div>
         </div>
 
-        <div class="table-responsive">
+        <!-- Stats Row -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <div>
+                <span class="job-counter">
+                    <i class="fas fa-users me-1"></i>
+                    Total Applications: <strong>@Model.Count()</strong>
+                </span>
+            </div>
+            <div class="text-muted small">
+                <i class="fas fa-chart-line me-1"></i> Active Candidates
+            </div>
+            <div class="text-muted small">
+                <i class="fas fa-arrow-trend-up me-1"></i> Real-time overview
+            </div>
+        </div>
 
-            <table class="table table-hover align-middle text-center">
-
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Degree</th>
-                        <th>University</th>
-                        <th>Salary</th>
-                        <th>Expected</th>
-                        <th>Year</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
+        <!-- Applications Table -->
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-applications">
+                    <thead>
                         <tr>
-
-                            <td>
-                                <i class="fa fa-user"></i> @item.Name
-                            </td>
-
-                            <td>@item.Degree</td>
-
-                            <td>@item.University</td>
-
-                            <td>💰 @item.PresentSalary</td>
-
-                            <td>💸 @item.ExpectionSalary</td>
-
-                            <td>📅 @item.CompletionYear</td>
-
-                            <td>
-
-                                <a asp-action="Details" asp-route-id="@item.Id"
-                                   class="btn btn-info btn-sm btn-custom">
-                                    👁
-                                </a>
-
-                                <a asp-action="CreateOrEdit" asp-route-id="@item.Id"
-                                   class="btn btn-warning btn-sm btn-custom">
-                                    ✏
-                                </a>
-
-                                <!-- ✅ SAFE DELETE -->
-                                <form asp-action="Delete" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <button type="submit"
-                                            class="btn btn-danger btn-sm btn-custom"
-                                            onclick="return confirm('Are you sure?')">
-                                        🗑
-                                    </button>
-                                </form>
-
-                            </td>
-
+                            <th><i class="fas fa-user me-1"></i> Candidate</th>
+                            <th><i class="fas fa-graduation-cap me-1"></i> Degree</th>
+                            <th><i class="fas fa-university me-1"></i> University</th>
+                            <th><i class="fas fa-coins me-1"></i> Present Salary</th>
+                            <th><i class="fas fa-chart-line me-1"></i> Expected Salary</th>
+                            <th><i class="fas fa-calendar me-1"></i> Completion Year</th>
+                            <th><i class="fas fa-cog me-1"></i> Actions</th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="user-avatar">
+                                            <i class="fas fa-user-alt fa-xs"></i>
+                                        </div>
+                                        <span class="fw-semibold">@item.Name</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-book-open me-1" style="color: var(--teal);"></i>
+                                    @item.Degree
+                                </td>
+                                <td>
+                                    <i class="fas fa-building me-1" style="color: var(--teal);"></i>
+                                    @item.University
+                                </td>
+                                <td>
+                                    <span class="salary-chip">
+                                        <i class="fas fa-taka-sign me-1"></i> @item.PresentSalary
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="expect-chip">
+                                        <i class="fas fa-chart-simple me-1"></i> @item.ExpectionSalary
+                                    </span>
+                                </td>
+                                <td>
+                                    <i class="fas fa-calendar-week me-1" style="color: #94A3B8;"></i>
+                                    @item.CompletionYear
+                                </td>
+                                <td>
+                                    <div class="action-group">
+                                        <a asp-action="Details" asp-route-id="@item.Id"
+                                           class="btn btn-view btn-icon flex-grow-1 justify-content-center">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        <a asp-action="CreateOrEdit" asp-route-id="@item.Id"
+                                           class="btn btn-edit btn-icon flex-grow-1 justify-content-center">
+                                            <i class="fas fa-pen"></i> Edit
+                                        </a>
+                                        <form asp-action="Delete" method="post" asp-route-id="@item.Id"
+                                              onsubmit="return confirm('Are you sure you want to permanently delete this application?');"
+                                              style="display: inline-block; flex-grow: 1;">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-delete btn-icon w-100">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <!-- Empty State -->
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h4 class="text-light mb-2">No Applications Found</h4>
+                <p class="text-secondary mb-4">Start receiving applications by creating your first entry.</p>
+                <a asp-action="CreateOrEdit" class="btn btn-add-job text-white">
+                    <i class="fas fa-plus-circle me-2"></i> Add Your First Application
+                </a>
+            </div>
+        }
 
-                </tbody>
-
-            </table>
-
+        <div class="mt-5 text-center">
+            <small class="text-white-50">
+                <i class="fas fa-shield-alt me-1"></i> Secure applicant management · All changes are tracked
+            </small>
         </div>
-
     </div>
-
 </div>
+
+@section Styles {
+    <style>
+        :root {
+            --teal: #14B8A6;
+        }
+        [data-bs-theme="dark"] {
+            --teal: #14B8A6;
+        }
+        [data-bs-theme="light"] {
+            --teal: #0F766E;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(ellipse at 20% 30%, #0B1120, #0F172A, #030712);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        [data-bs-theme="light"] body {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E0E7FF 100%);
+
+        }
+
+        /* Glass Container - Same as Job Management */
+        .glass-container {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border-radius: 36px;
+            padding: 2rem;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        [data-bs-theme="light"] .glass-container {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        /* Table Styling */
+        .table-applications {
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 100%;
+        }
+
+        .table-applications thead th {
+            padding: 1.1rem 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            color: #CBD5E1;
+        }
+
+        [data-bs-theme="light"] .table-applications thead th {
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        .table-applications tbody tr {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        [data-bs-theme="light"] .table-applications tbody tr {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .table-applications tbody tr:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        [data-bs-theme="light"] .table-applications tbody tr:hover {
+            background: #F8FAFC;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .table-applications td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+            border: none;
+            color: #E2E8F0;
+            font-size: 0.95rem;
+        }
+
+        [data-bs-theme="light"] .table-applications td {
+            color: #334155;
+        }
+
+        /* Action Group */
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-view, .btn-edit, .btn-delete {
+            border: none;
+            padding: 0.65rem 1rem;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--teal);
+        }
+
+        .btn-edit {
+            background: rgba(234, 179, 8, 0.15);
+            color: #EAB308;
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        [data-bs-theme="light"] .btn-view  { background: rgba(20, 184, 166, 0.1); }
+        [data-bs-theme="light"] .btn-edit  { background: rgba(234, 179, 8, 0.1); }
+        [data-bs-theme="light"] .btn-delete { background: rgba(239, 68, 68, 0.1); }
+
+        /* Chips */
+        .salary-chip {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .expect-chip {
+            background: rgba(245, 158, 11, 0.15);
+            color: #F59E0B;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Avatar */
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--teal), #0D9488);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        [data-bs-theme="light"] .empty-state {
+            background: rgba(241, 245, 249, 0.8);
+            border-color: #CBD5E1;
+        }
+
+        .empty-icon {
+            font-size: 3.5rem;
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+    </style>
+}

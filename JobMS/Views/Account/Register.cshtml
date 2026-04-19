@@ -1,114 +1,529 @@
 ﻿@model JobMS.Models.Auth.RegisterViewModel
-
 @{
+    Layout = null;
     ViewData["Title"] = "Register";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | JobMS Portal</title>
 
-<style>
-    body {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        height: 100vh;
-    }
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 
-    .register-card {
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        color: white;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .form-control {
-        border-radius: 10px;
-        padding: 12px;
-    }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(ellipse at 20% 30%, #0B1120, #0F172A, #030712);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    .btn-custom {
-        border-radius: 10px;
-        background: linear-gradient(45deg, #ff6a00, #ee0979);
-        border: none;
-        font-weight: bold;
-    }
+            /* animated background elements */
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%), repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 40px);
+                pointer-events: none;
+                z-index: 0;
+            }
 
-    .btn-custom:hover {
-        opacity: 0.9;
-    }
+        /* floating glow orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .title {
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
+        .orb-cyan {
+            width: 500px;
+            height: 500px;
+            background: #14B8A6;
+            top: -150px;
+            right: -100px;
+        }
 
-    .icon {
-        margin-right: 8px;
-    }
-</style>
+        .orb-blue {
+            width: 450px;
+            height: 450px;
+            background: #3B82F6;
+            bottom: -120px;
+            left: -80px;
+        }
 
-<div class="container d-flex justify-content-center align-items-center" style="height:100vh;">
-    <div class="col-md-5">
-        <div class="card register-card p-4">
+        /* card styling premium */
+        .register-card {
+            background: rgba(17, 24, 39, 0.88);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            border: none;
+        }
 
-            <h2 class="text-center title mb-4">✨ Create Account</h2>
+            .register-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 40px 70px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12);
+            }
 
-            <form asp-action="Register" asp-controller="Account" method="post" enctype="multipart/form-data">
+        /* header gradient premium */
+        .card-header-premium {
+            background: linear-gradient(145deg, #0F172A 0%, #0B1120 100%);
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(20, 184, 166, 0.3);
+        }
 
-                <div asp-validation-summary="ModelOnly" class="text-warning"></div>
+            .card-header-premium::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 10%;
+                width: 80%;
+                height: 3px;
+                background: linear-gradient(90deg, #14B8A6, #22D3EE, #14B8A6);
+                border-radius: 4px;
+            }
 
-                <!-- Name -->
-                <div class="mb-3">
-                    <label class="form-label">👤 Full Name</label>
-                    <input asp-for="Name" class="form-control" placeholder="Enter your name" />
-                    <span asp-validation-for="Name" class="text-warning"></span>
+        .brand-icon-circle {
+            background: linear-gradient(135deg, #14B8A6, #0D9488);
+            width: 70px;
+            height: 70px;
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 12px 25px rgba(20, 184, 166, 0.35);
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #F8FAFC, #E2E8F0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #94A3B8;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* form area */
+        .form-area {
+            padding: 2.5rem 2.2rem 2.2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            color: #CBD5E1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .form-label i {
+                font-size: 0.9rem;
+                color: #14B8A6;
+            }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 12px 18px;
+            font-size: 0.95rem;
+            color: #F1F5F9;
+            transition: all 0.2s ease;
+        }
+
+            .form-control:focus {
+                background: rgba(255, 255, 255, 0.09);
+                border-color: #14B8A6;
+                box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2);
+                outline: none;
+                color: white;
+            }
+
+            .form-control::placeholder {
+                color: #5B6E8C;
+                font-weight: 400;
+                font-size: 0.85rem;
+            }
+
+        /* file input custom */
+        input[type="file"].form-control {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 30px;
+            padding: 6px 16px;
+            color: #CBD5E1;
+            font-weight: 500;
+            margin-right: 15px;
+            transition: 0.2s;
+        }
+
+            input[type="file"]::file-selector-button:hover {
+                background: #2D3A52;
+                color: white;
+            }
+
+        /* button register premium */
+        .btn-register {
+            background: linear-gradient(105deg, #14B8A6, #0D9488);
+            border: none;
+            border-radius: 40px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.25);
+            letter-spacing: 0.3px;
+        }
+
+            .btn-register:hover {
+                transform: translateY(-2px);
+                background: linear-gradient(105deg, #2DD4BF, #14B8A6);
+                box-shadow: 0 12px 28px rgba(20, 184, 166, 0.4);
+            }
+
+        /* links */
+        .login-link {
+            color: #22D3EE;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            .login-link:hover {
+                color: #67E8F9;
+                text-decoration: underline;
+            }
+
+        /* validation styles */
+        .text-danger {
+            color: #F97316 !important;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .field-validation-error {
+            color: #F97316;
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        .input-validation-error {
+            border-color: #F97316 !important;
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+        }
+
+        .validation-summary-errors {
+            background: rgba(153, 27, 27, 0.2);
+            border-left: 3px solid #F97316;
+            border-radius: 16px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            color: #FCD34D;
+        }
+
+            .validation-summary-errors ul {
+                margin-bottom: 0;
+                padding-left: 1.2rem;
+            }
+
+        /* text-muted small */
+        .text-muted-small {
+            color: #6B7A8F;
+            font-size: 0.7rem;
+            margin-top: 6px;
+            display: block;
+        }
+
+        /* custom helper */
+        .input-group-icon {
+            position: relative;
+        }
+
+        /* footer */
+        .footer-note {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @@media (max-width: 576px) {
+            .form-area
+
+        {
+            padding: 1.8rem;
+        }
+
+        .card-header-premium {
+            padding: 1.8rem 1rem;
+        }
+
+        .title {
+            font-size: 1.6rem;
+        }
+
+        }
+
+        /* micro animation */
+        @@keyframes fadeSlideUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        .register-card {
+            animation: fadeSlideUp 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- floating orbs for depth -->
+    <div class="bg-orb orb-cyan"></div>
+    <div class="bg-orb orb-blue"></div>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100 py-5 position-relative" style="z-index: 2;">
+        <div class="col-11 col-md-9 col-lg-7 col-xl-5">
+            <div class="register-card">
+
+                <!-- Premium Header -->
+                <div class="card-header-premium">
+                    <div class="brand-icon-circle">
+                        <i class="fas fa-briefcase fa-2x" style="color: white;"></i>
+                    </div>
+                    <h2 class="title">Join JobMS</h2>
+                    <p class="subtitle">Start your professional journey today</p>
                 </div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label class="form-label">📧 Email</label>
-                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
-                    <span asp-validation-for="Email" class="text-warning"></span>
-                </div>
+                <!-- Form Section -->
+                <div class="form-area">
+                    <form asp-action="Register" asp-controller="Account" method="post" enctype="multipart/form-data" id="registerForm">
 
-                <!-- Password -->
-                <div class="mb-3">
-                    <label class="form-label">🔒 Password</label>
-                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
-                    <span asp-validation-for="Password" class="text-warning"></span>
-                </div>
+                        <!-- Validation Summary (Model errors) -->
+                        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
 
-                <!-- Phone -->
-                <div class="mb-3">
-                    <label class="form-label">📱 Phone Number</label>
-                    <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone" />
-                    <span asp-validation-for="PhoneNumber" class="text-warning"></span>
-                </div>
+                        <!-- Full Name -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-user-circle"></i> Full Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="e.g., Michael Chen" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-                <!-- Image Upload -->
-                <div class="mb-3">
-                    <label class="form-label">🖼 Upload Image</label>
-                    <input asp-for="ImageFile" type="file" class="form-control" />
-                </div>
+                        <!-- Email Address -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="hello@jobms.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-                <!-- Button -->
-                <div class="d-grid mt-4">
-                    <button type="submit" class="btn btn-custom btn-lg">
-                        🚀 Register Now
-                    </button>
-                </div>
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Create a strong password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <small class="text-muted-small"><i class="fas fa-info-circle me-1"></i> Minimum 6 characters, use letters & numbers</small>
+                        </div>
 
-                <div class="text-center mt-3">
-                    <small>
-                        Already have an account?
-                        <a asp-action="Login" asp-controller="Account" class="text-white fw-bold">Login</a>
-                    </small>
-                </div>
+                        <!-- Phone Number -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-phone-alt"></i> Phone Number</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="880 1XXX XXXXXX" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
 
-            </form>
+                        <!-- Profile Image File -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="fas fa-image"></i> Profile Picture</label>
+                            <input asp-for="ImageFile" type="file" class="form-control" accept="image/jpeg,image/png,image/jpg" />
+                            <small class="text-muted-small"><i class="fas fa-cloud-upload-alt me-1"></i> Optional · JPG/PNG up to 5MB</small>
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+
+                        <!-- Register Action Button -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-register">
+                                <i class="fas fa-user-plus me-2"></i> Create Account
+                            </button>
+                        </div>
+
+                        <!-- Already have account? -->
+                        <div class="text-center mt-4">
+                            <small class="text-muted" style="color: #94A3B8 !important;">
+                                Already have an account?
+                                <a asp-action="Login" asp-controller="Account" class="login-link ms-1">
+                                    Sign in <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer copyright -->
+            <div class="footer-note">
+                <i class="far fa-copyright me-1"></i> 2026 JobMS — Professional Job Management System
+            </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    <!-- jQuery, Validation & Unobtrusive (same as Login page) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Additional Micro Interactions & Real-time Validation Enhancer -->
+    <script>
+        $(document).ready(function () {
+            // Parse unobtrusive validation for dynamic form
+            $.validator.unobtrusive.parse('#registerForm');
+
+            // Add real-time feedback styling (extra polish)
+            const formElements = document.querySelectorAll('.form-control');
+            formElements.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+            });
+
+            // Optional: live password strength tip (non-intrusive)
+            const passwordField = document.querySelector('input[name="Password"]');
+            if (passwordField) {
+                passwordField.addEventListener('input', function(e) {
+                    let val = e.target.value;
+                    let strengthHint = document.querySelector('.text-muted-small');
+                    if (strengthHint && val.length > 0 && val.length < 6) {
+                        strengthHint.style.color = "#F97316";
+                        strengthHint.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> Password too short (min 6 characters)';
+                    } else if (strengthHint && val.length >= 6) {
+                        strengthHint.style.color = "#6B7A8F";
+                        strengthHint.innerHTML = '<i class="fas fa-check-circle me-1"></i> Strong enough · use unique characters for better security';
+                    } else if (strengthHint && val.length === 0) {
+                        strengthHint.style.color = "#6B7A8F";
+                        strengthHint.innerHTML = '<i class="fas fa-info-circle me-1"></i> Minimum 6 characters, use letters & numbers';
+                    }
+                });
+            }
+
+            // Enhance file input display (optional)
+            const fileInput = document.querySelector('input[type="file"]');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const fileSize = this.files[0].size / 1024 / 1024;
+                        if (fileSize > 5) {
+                            alert('Profile image exceeds 5MB limit. Please choose a smaller file.');
+                            this.value = '';
+                        }
+                    }
+                });
+            }
+
+            // Form submit additional validation before server (ensures client validation prevents empty required fields)
+            $('#registerForm').on('submit', function(e) {
+                if (!$(this).valid()) {
+                    e.preventDefault();
+                    // smooth scroll to first error
+                    let firstErrorSpan = $('.field-validation-error').first();
+                    if (firstErrorSpan.length) {
+                        $('html, body').animate({
+                            scrollTop: firstErrorSpan.closest('.mb-4').offset().top - 130
+                        }, 300);
+                    }
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <!-- Additional style for small adjustments -->
+    <style>
+        /* fixes for validation messages alignment */
+        .field-validation-error, span.text-danger {
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+            .field-validation-error:before {
+                content: "⚠️";
+                font-size: 0.65rem;
+            }
+        /* success style for later not needed but neat */
+        .input-group .form-control:focus {
+            border-color: #14B8A6;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        a.login-link i {
+            transition: transform 0.2s;
+        }
+
+        a.login-link:hover i {
+            transform: translateX(3px);
+        }
+    </style>
+
+    <!-- Explicitly handle antiforgery token is added automatically by ASP.NET Core -->
+    @Html.AntiForgeryToken()
+</body>
+</html>
