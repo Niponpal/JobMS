@@ -32,6 +32,21 @@ namespace JobMS.Controllers
             return NotFound();
         }
 
+
+        // JobController.cs
+        public async Task<IActionResult> ViewDetails(long id, CancellationToken cancellationToken)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            var job = await _jobRepository.GetJobsByIdAsync(id, cancellationToken);
+
+            if (job == null)
+                return NotFound();
+
+            return View(job);   
+        }
+
         public IActionResult Privacy()
         {
             return View();

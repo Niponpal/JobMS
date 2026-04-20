@@ -1,0 +1,147 @@
+﻿@model JobMS.Models.Job
+
+@{
+    ViewData["Title"] = Model?.JobTitle ?? "Job Details";
+    Layout = "_LayoutPublic";
+}
+
+<div class="container py-5">
+    <div class="glass-container">
+
+        <!-- Back Button -->
+        <div class="mb-4">
+            <a asp-action="Index" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-arrow-left me-2"></i> Back to All Jobs
+            </a>
+        </div>
+
+        @if (Model != null)
+        {
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h1 class="display-5 fw-bold mb-2 job-title">@Model.JobTitle</h1>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="badge @(Model.Status == "Active" ? "bg-success" : "bg-danger") px-3 py-2 fs-6">
+                                    <i class="fas fa-circle me-1" style="font-size: 0.6rem;"></i>
+                                    @Model.Status
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Description -->
+                    <div class="mb-5">
+                        <h5 class="text-teal fw-semibold mb-3">
+                            <i class="fas fa-align-left me-2"></i> Job Description
+                        </h5>
+                        <div class="job-description-content">
+                            @if (string.IsNullOrEmpty(Model.Description))
+                            {
+                                <p class="text-muted">No description provided for this position.</p>
+                            }
+                            else
+                            {
+                                <p style="white-space: pre-line; font-size: 1.05rem; line-height: 1.75;">
+                                    @Model.Description
+                                </p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Requirements / Responsibilities (Add these fields later if needed) -->
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="job-sidebar sticky-top" style="top: 100px;">
+
+                        <!-- Job Meta Card -->
+                        <div class="card border-0 shadow-sm mb-4"
+                             style="background: rgba(255,255,255,0.06); border-radius: 20px;">
+                            <div class="card-body p-4">
+                                <h6 class="text-muted mb-3">Job Information</h6>
+
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <i class="fas fa-money-bill-wave fa-2x" style="color: var(--teal);"></i>
+                                    <div>
+                                        <small class="text-muted">Salary</small>
+                                        <p class="fw-semibold mb-0">
+                                            @(string.IsNullOrEmpty(Model.SalaryRange) ? "Not specified" : Model.SalaryRange)
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <i class="fas fa-calendar-alt fa-2x" style="color: var(--teal);"></i>
+                                    <div>
+                                        <small class="text-muted">Application Deadline</small>
+                                        <p class="fw-semibold mb-0">
+                                            @(Model.Deadline?.ToString("dd MMMM yyyy") ?? "No deadline")
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="fas fa-clock fa-2x" style="color: var(--teal);"></i>
+                                    <div>
+                                        <small class="text-muted">Posted On</small>
+                                        <p class="fw-semibold mb-0">
+                                            @(Model.CreatedAt.ToString("dd MMM yyyy") ?? "Recently")
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Apply Button -->
+                        <a asp-controller="Application" asp-action="CreateOrEdit" asp-route-jobId="@Model.Id"
+                           class="btn btn-apply w-100 py-3 fs-5 fw-semibold shadow-sm">
+                            <i class="fas fa-paper-plane me-2"></i> Apply Now
+                        </a>
+
+                        <div class="text-center mt-4">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt me-1"></i> Secure Application Process
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <h4>Job not found</h4>
+                <a asp-action="Index" class="btn btn-primary mt-3">Browse All Jobs</a>
+            </div>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .job-title {
+            color: #f1f5f9;
+        }
+
+        [data-bs-theme="light"] .job-title {
+            color: #1e2937;
+        }
+
+        .job-description-content {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        [data-bs-theme="light"] .job-description-content {
+            color: #475569;
+        }
+
+        .text-teal {
+            color: var(--teal);
+        }
+    </style>
+}

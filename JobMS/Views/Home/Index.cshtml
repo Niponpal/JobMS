@@ -1,36 +1,23 @@
 ﻿@model IEnumerable<JobMS.Models.Job>
+
 @{
-    ViewData["Title"] = "Jobs";
+    ViewData["Title"] = "Available Jobs";
     Layout = "_LayoutPublic";
 }
 
-<div class="container py-5 position-relative" style="z-index: 2;">
+<div class="container py-5">
     <div class="glass-container">
         <!-- Header -->
-        <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-5">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-5">
             <div>
-                <h1 class="mb-1">
+                <h1 class="display-5 fw-bold mb-1">
                     <i class="fas fa-briefcase me-3" style="color: var(--teal);"></i>
                     Available Jobs
                 </h1>
-                <p class="text-muted mb-0">Find your next career opportunity</p>
+                <p class="text-muted fs-5 mb-0">Discover your next career opportunity</p>
             </div>
         </div>
 
-        <!-- Stats -->
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-            <div>
-                <span class="job-counter">
-                    <i class="fas fa-list-ul me-1"></i>
-                    Total Open Positions: <strong>@Model.Count()</strong>
-                </span>
-            </div>
-            <div class="text-muted small">
-                <i class="fas fa-sync-alt me-1"></i> Live opportunities
-            </div>
-        </div>
-
-        <!-- Job Cards -->
         @if (Model != null && Model.Any())
         {
             <div class="row g-4">
@@ -39,12 +26,8 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="job-card">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div class="job-title">
-                                    <i class="fas fa-tag me-2" style="color: var(--teal);"></i>
-                                    @job.JobTitle
-                                </div>
-                                <span class="badge-custom @(job.Status == "Active" ? "badge-active" : "badge-inactive")">
-                                    <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
+                                <h5 class="job-title mb-0">@job.JobTitle</h5>
+                                <span class="badge @(job.Status == "Active" ? "bg-success" : "bg-danger") px-3 py-2">
                                     @job.Status
                                 </span>
                             </div>
@@ -52,30 +35,30 @@
                             <div class="job-description mb-4">
                                 @(string.IsNullOrEmpty(job.Description)
                                                         ? "No description provided."
-                                                        : (job.Description.Length > 135
-                                                        ? job.Description.Substring(0, 135) + "..."
+                                                        : (job.Description.Length > 160
+                                                        ? job.Description.Substring(0, 160) + "..."
                                                         : job.Description))
                     </div>
 
                             <div class="job-meta mt-auto mb-4">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <i class="fas fa-money-bill-wave" style="color: var(--teal); width: 20px;"></i>
-                                    <span>@(string.IsNullOrEmpty(job.SalaryRange) ? "Not specified" : job.SalaryRange)</span>
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="fas fa-money-bill-wave" style="color: var(--teal); width: 22px;"></i>
+                                    <span class="fw-medium">@(string.IsNullOrEmpty(job.SalaryRange) ? "Salary not specified" : job.SalaryRange)</span>
                                 </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="fas fa-calendar-alt" style="color: var(--teal); width: 20px;"></i>
-                                    <span>@(job.Deadline?.ToString("dd MMM yyyy") ?? "No deadline")</span>
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="fas fa-calendar-alt" style="color: var(--teal); width: 22px;"></i>
+                                    <span class="fw-medium">@(job.Deadline?.ToString("dd MMM yyyy") ?? "No deadline")</span>
                                 </div>
                             </div>
 
-                            <div class="action-group">
-                                <a asp-action="Details" asp-route-id="@job.Id"
-                                   class="btn btn-view btn-icon flex-grow-1 justify-content-center">
-                                    <i class="fas fa-eye"></i> View Details
+                            <div class="d-flex gap-2 mt-auto">
+                                <a asp-action="ViewDetails" asp-route-id="@job.Id"
+                                   class="btn btn-outline-light flex-grow-1">
+                                    <i class="fas fa-eye me-2"></i> View Details
                                 </a>
                                 <a asp-controller="Application" asp-action="CreateOrEdit" asp-route-jobId="@job.Id"
-                                   class="btn btn-apply btn-icon flex-grow-1 justify-content-center">
-                                    <i class="fas fa-paper-plane"></i> Apply Now
+                                   class="btn btn-apply flex-grow-1 text-white">
+                                    <i class="fas fa-paper-plane me-2"></i> Apply Now
                                 </a>
                             </div>
                         </div>
@@ -85,210 +68,19 @@
         }
         else
         {
-            <!-- Empty State -->
-            <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="fas fa-briefcase"></i>
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-briefcase" style="font-size: 4.5rem; color: #64748b; opacity: 0.6;"></i>
                 </div>
-                <h4 class="text-light mb-2">No Open Jobs Right Now</h4>
-                <p class="text-secondary mb-4">Please check back later for new opportunities.</p>
+                <h4 class="mb-2">No Open Positions Right Now</h4>
+                <p class="text-muted">We're always growing. Please check back soon for new opportunities.</p>
             </div>
         }
 
-        <div class="mt-5 text-center">
-            <small class="text-white-50">
-                <i class="fas fa-shield-alt me-1"></i> All applications are handled securely
+        <div class="text-center mt-5 pt-4 border-top border-secondary">
+            <small class="text-muted">
+                <i class="fas fa-shield-alt me-1"></i> All applications are processed securely
             </small>
         </div>
     </div>
 </div>
-
-@section Styles {
-    <style>
-        :root {
-            --teal: #14B8A6;
-        }
-
-        [data-bs-theme="dark"] {
-            --teal: #14B8A6;
-        }
-
-        [data-bs-theme="light"] {
-            --teal: #0F766E;
-        }
-
-        html {
-            font-size: 14px;
-        }
-        @@media (min-width: 768px) {
-            html
-
-        {
-            font-size: 16px;
-        }
-
-        }
-
-        .btn:focus, .btn:active:focus {
-            box-shadow: 0 0 0 0.1rem rgba(255,255,255,0.85), 0 0 0 0.25rem #258cfb;
-            outline: none;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(ellipse at 20% 30%, #0B1120, #0F172A, #030712);
-            min-height: 100vh;
-            margin-bottom: 60px;
-        }
-
-        [data-bs-theme="light"] body {
-            background: linear-gradient(135deg, #F8FAFC 0%, #E0E7FF 100%);
-        }
-
-        .glass-container {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            border-radius: 36px;
-            padding: 2.25rem;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        [data-bs-theme="light"] .glass-container {
-            background: rgba(255,255,255,0.85);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
-            border: 1px solid rgba(148,163,184,0.2);
-        }
-
-        .job-card {
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(4px);
-            border-radius: 24px;
-            padding: 1.75rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.4, 1);
-            border: 1px solid rgba(255,255,255,0.08);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        [data-bs-theme="light"] .job-card {
-            background: rgba(255,255,255,0.95);
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
-        }
-
-        .job-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.25);
-            border-color: rgba(20,184,166,0.6);
-        }
-
-        [data-bs-theme="light"] .job-card:hover {
-            background: white;
-            border-color: var(--teal);
-            box-shadow: 0 20px 30px -8px rgb(0 0 0 / 0.12);
-        }
-
-        .job-title {
-            font-size: 1.32rem;
-            font-weight: 700;
-            color: #F1F5F9;
-            margin-bottom: 0.85rem;
-        }
-
-        [data-bs-theme="light"] .job-title {
-            color: #1E2937;
-        }
-
-        .job-description {
-            color: #CBD5E1;
-            font-size: 0.92rem;
-            line-height: 1.55;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        [data-bs-theme="light"] .job-description {
-            color: #475569;
-        }
-
-        .job-meta {
-            color: #94A3B8;
-            font-size: 0.9rem;
-        }
-
-        [data-bs-theme="light"] .job-meta {
-            color: #64748B;
-        }
-
-        .job-meta i {
-            color: var(--teal);
-            width: 20px;
-        }
-
-        .badge-active {
-            background: linear-gradient(135deg, #10B981, #059669);
-            color: white;
-            padding: 0.4em 1em;
-            border-radius: 9999px;
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
-
-        .badge-inactive {
-            background: linear-gradient(135deg, #EF4444, #DC2626);
-            color: white;
-            padding: 0.4em 1em;
-            border-radius: 9999px;
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
-
-        /* Apply Button - New Style */
-        .btn-apply {
-            background: linear-gradient(105deg, #10B981, #059669);
-            color: white;
-            border: none;
-            font-weight: 600;
-        }
-
-            .btn-apply:hover {
-                background: linear-gradient(105deg, #059669, #047857);
-                transform: translateY(-2px);
-            }
-
-        .action-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-view {
-            background: rgba(20,184,166,0.15);
-            color: var(--teal);
-        }
-
-        [data-bs-theme="light"] .btn-view {
-            background: rgba(20,184,166,0.1);
-        }
-
-        .empty-state {
-            background: rgba(255,255,255,0.05);
-            border: 1px dashed rgba(255,255,255,0.25);
-            border-radius: 24px;
-            padding: 4.5rem 2rem;
-            text-align: center;
-        }
-
-        [data-bs-theme="light"] .empty-state {
-            background: rgba(241,245,249,0.85);
-            border-color: #CBD5E1;
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            color: var(--teal);
-            margin-bottom: 1.25rem;
-        }
-    </style>
-}
