@@ -10,5 +10,6 @@ public interface IApplicationRepository
     Task<Application> AddApplicationAsync(Application application, CancellationToken cancellationToken);
     Task<Application?> UpdateApplicationAsync(Application application, CancellationToken cancellationToken);
     Task<Application> DeleteApplicationAsync(long id, CancellationToken cancellationToken);
-  
+    Task<bool> IsAlreadyAppliedAsync(long jobId, long userId, CancellationToken cancellationToken);
+
 }

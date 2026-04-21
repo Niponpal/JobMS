@@ -71,10 +71,7 @@
                         <input asp-for="Name" class="form-control" />
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label>Application ID</label>
-                        <input asp-for="ApplicationId" class="form-control" />
-                    </div>
+                 
 
                     <div class="col-md-6 mb-3">
                         <label>Present Salary</label>
@@ -112,11 +109,8 @@
                     </div>
 
                     <!-- 🔥 Best Part (Dropdown from master) -->
-                    <div class="col-md-6 mb-3">
-                       @*  <label>Job</label>
-                        <select asp-for="JobId" class="form-control" asp-items="ViewBag.JobList">
-                            <option value="">-- Select Job --</option>
-                        </select> *@
+                    @* <div class="col-md-6 mb-3">
+                    
                         <label asp-for="JobId" class="form-label fw-semibold">Book</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-text"><i class="bi bi-book"></i></span>
@@ -125,8 +119,19 @@
                             </select>
                         </div>
                         <span asp-validation-for="JobId" class="text-danger small"></span>
+                    </div> *@
+                    <!-- Job Title Auto Display -->
+                    <!-- Job Title Auto Show -->
+                    <div class="col-md-6 mb-3">
+                        <label>Job Title</label>
+                        <input type="text"
+                               class="form-control"
+                               value="@ViewBag.JobTitle"
+                               readonly />
                     </div>
 
+                    <!-- Hidden JobId (IMPORTANT) -->
+                    <input type="hidden" asp-for="JobId" />
 
                    
 
