@@ -74,4 +74,9 @@ public class ApplicationRepository : IApplicationRepository
         }
         return null;
     }
+    public async Task<bool> IsAlreadyAppliedAsync(long jobId, long userId, CancellationToken cancellationToken)
+    {
+        return await _context.Applications
+            .AnyAsync(x => x.JobId == jobId && x.UserId == userId, cancellationToken);
+    }
 }

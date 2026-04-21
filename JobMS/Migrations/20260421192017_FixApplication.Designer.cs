@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260419055111_CleanApplicationTable")]
-    partial class CleanApplicationTable
+    [Migration("20260421192017_FixApplication")]
+    partial class FixApplication
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,8 +225,8 @@ namespace JobMS.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "09703056-b617-40a7-8678-7c3bef83d754",
-                            CreatedAt = new DateTime(2026, 4, 19, 11, 51, 10, 674, DateTimeKind.Local).AddTicks(8229),
+                            ConcurrencyStamp = "26ca1e8f-78a7-44ba-ab01-fbe4a179f17b",
+                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 571, DateTimeKind.Local).AddTicks(2734),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
@@ -234,10 +234,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIbYcESeOgAl8jqpido/3pqruk4lDeBb4KMnqq/jjC4Hd9fwWejqFWBGn7vpo6O/mg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED1kv/O6IDoYJfwAAHHBdyvauDQa5k2+i57BEbNlcsTzLNmR144orft1psEelOQhTg==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "4d1c48d1-9c69-4a45-91bb-db5cc215985a",
+                            SecurityStamp = "51cebf61-37f6-4b88-bdc9-1bf0e1232f66",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -245,8 +245,8 @@ namespace JobMS.Migrations
                         {
                             Id = 2L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6107bd1-84c1-441c-8ca3-9de0e0de506c",
-                            CreatedAt = new DateTime(2026, 4, 19, 11, 51, 10, 724, DateTimeKind.Local).AddTicks(6184),
+                            ConcurrencyStamp = "c942c4b0-0269-467c-8644-6c07e6592abd",
+                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 621, DateTimeKind.Local).AddTicks(3577),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "employer@localhost.com",
@@ -254,10 +254,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYER@LOCALHOST.COM",
                             NormalizedUserName = "EMPLOYER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEIprUe03vFY/3sfbTo4z7nfxLjXsj6vkdwm3RrFzXVgIoyfL7lvGw4b+0v28KyLWw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDw/IsDUO5/Va8qACn3fm2t9gebPfvIluox6r8rnECSdl/3FWEYeZ1hkOIHAvbjHVg==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "6605260a-1b28-4b73-a539-ea29e3043d2c",
+                            SecurityStamp = "9669fff8-896e-4f83-b90c-bd22da20e266",
                             TwoFactorEnabled = false,
                             UserName = "employer@localhost.com"
                         },
@@ -265,8 +265,8 @@ namespace JobMS.Migrations
                         {
                             Id = 3L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f6c924d0-3bac-4eb3-9f4f-af16e63e3f74",
-                            CreatedAt = new DateTime(2026, 4, 19, 11, 51, 10, 771, DateTimeKind.Local).AddTicks(8064),
+                            ConcurrencyStamp = "ec323937-07aa-4833-9a59-16502e23cff2",
+                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 667, DateTimeKind.Local).AddTicks(9583),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "candidate@localhost.com",
@@ -274,10 +274,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CANDIDATE@LOCALHOST.COM",
                             NormalizedUserName = "CANDIDATE@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHSGkvAcZEHjyOmR4xqYtrB7yYArYmKz+Fp+9DaPdv/S2PCrMKjTfYKvDEPekoLwNw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMDkzTsq//jmyTYA4FBAS3C3CP+/ZHUUlB4+Hw8e4krdLRgEjcpZAkwID9DbWlCkPg==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "8de5d9cf-e8e2-409d-856b-8f1a734ea1f9",
+                            SecurityStamp = "e82e1d10-d739-45c6-8b88-c2481362d327",
                             TwoFactorEnabled = false,
                             UserName = "candidate@localhost.com"
                         });
@@ -389,11 +389,12 @@ namespace JobMS.Migrations
 
                     b.Property<string>("ApplicationId")
                         .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal?>("CGPA")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<int?>("CompletionYear")
                         .HasColumnType("int");
@@ -404,6 +405,7 @@ namespace JobMS.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal?>("ExpectionSalary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("JobId")
@@ -415,6 +417,7 @@ namespace JobMS.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal?>("PresentSalary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ResumePath")
@@ -427,16 +430,17 @@ namespace JobMS.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
-                    b.Property<long>("UserId1")
+                    b.Property<long?>("UserId1")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("JobId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("UserId1");
 
@@ -545,10 +549,14 @@ namespace JobMS.Migrations
                         .IsRequired();
 
                     b.HasOne("JobMS.Auth_IdentityModel.User", "User")
-                        .WithMany("Applications")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("JobMS.Auth_IdentityModel.User", null)
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Job");
 

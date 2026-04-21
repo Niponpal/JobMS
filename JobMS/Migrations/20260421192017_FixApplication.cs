@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobMS.Migrations
 {
     /// <inheritdoc />
-    public partial class ints : Migration
+    public partial class FixApplication : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -199,17 +199,18 @@ namespace JobMS.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationId = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    ApplicationId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PresentSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    ExpectionSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    PresentSalary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
+                    ExpectionSalary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     Degree = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     University = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CGPA = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    CGPA = table.Column<decimal>(type: "decimal(3,2)", precision: 3, scale: 2, nullable: true),
                     CompletionYear = table.Column<int>(type: "int", nullable: true),
                     ResumePath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    JobId = table.Column<long>(type: "bigint", nullable: false)
+                    JobId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId1 = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,7 +220,12 @@ namespace JobMS.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Applications_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Applications_Jobs_JobId",
                         column: x => x.JobId,
@@ -243,9 +249,9 @@ namespace JobMS.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "CreatedBy", "CreatedDate", "Email", "EmailConfirmed", "ImageUrl", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisterDate", "SecurityStamp", "TwoFactorEnabled", "UpdatedBy", "UpdatedDate", "UserId", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, 0, "a7043c29-57dd-4e1f-985d-d4223298c90c", new DateTime(2026, 4, 18, 13, 53, 44, 423, DateTimeKind.Local).AddTicks(183), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, null, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOtAi6xqajGiFbeJsaODQs8LhqpN+Wdp8ecBisC+vlA3UCT+BLGz6SpxFJsNByX/vA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "42875ef8-b475-4133-8fc7-ca4b50323bbf", false, null, null, null, "admin@localhost.com" },
-                    { 2L, 0, "827e84a2-5297-4373-9a63-37e4ef4a2a08", new DateTime(2026, 4, 18, 13, 53, 44, 475, DateTimeKind.Local).AddTicks(7399), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employer@localhost.com", true, null, false, null, "EMPLOYER@LOCALHOST.COM", "EMPLOYER@LOCALHOST.COM", "AQAAAAIAAYagAAAAENU+/qInRRIvzhnDHFqA3YuhVrruDWkW7FMCXX7FwmkEZ81Hpk3ksVrCRK4s74Q0eA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "24618b6b-a426-42f6-a3f0-4c9799f85e07", false, null, null, null, "employer@localhost.com" },
-                    { 3L, 0, "599debcc-0295-4c8c-844c-6bcbd387169b", new DateTime(2026, 4, 18, 13, 53, 44, 523, DateTimeKind.Local).AddTicks(4200), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "candidate@localhost.com", true, null, false, null, "CANDIDATE@LOCALHOST.COM", "CANDIDATE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEBQCxUkSuS8mqblmMCIadZr7jbdiv5IsEtQV0Klkyp0h2ysrF7biWPY8cc+5Z+0ylA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "020f785c-387b-4b58-91dc-cb0e58b3c3ae", false, null, null, null, "candidate@localhost.com" }
+                    { 1L, 0, "26ca1e8f-78a7-44ba-ab01-fbe4a179f17b", new DateTime(2026, 4, 22, 1, 20, 16, 571, DateTimeKind.Local).AddTicks(2734), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, null, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAED1kv/O6IDoYJfwAAHHBdyvauDQa5k2+i57BEbNlcsTzLNmR144orft1psEelOQhTg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "51cebf61-37f6-4b88-bdc9-1bf0e1232f66", false, null, null, null, "admin@localhost.com" },
+                    { 2L, 0, "c942c4b0-0269-467c-8644-6c07e6592abd", new DateTime(2026, 4, 22, 1, 20, 16, 621, DateTimeKind.Local).AddTicks(3577), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employer@localhost.com", true, null, false, null, "EMPLOYER@LOCALHOST.COM", "EMPLOYER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEDw/IsDUO5/Va8qACn3fm2t9gebPfvIluox6r8rnECSdl/3FWEYeZ1hkOIHAvbjHVg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "9669fff8-896e-4f83-b90c-bd22da20e266", false, null, null, null, "employer@localhost.com" },
+                    { 3L, 0, "ec323937-07aa-4833-9a59-16502e23cff2", new DateTime(2026, 4, 22, 1, 20, 16, 667, DateTimeKind.Local).AddTicks(9583), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "candidate@localhost.com", true, null, false, null, "CANDIDATE@LOCALHOST.COM", "CANDIDATE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMDkzTsq//jmyTYA4FBAS3C3CP+/ZHUUlB4+Hw8e4krdLRgEjcpZAkwID9DbWlCkPg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e82e1d10-d739-45c6-8b88-c2481362d327", false, null, null, null, "candidate@localhost.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,6 +273,11 @@ namespace JobMS.Migrations
                 name: "IX_Applications_UserId",
                 table: "Applications",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_UserId1",
+                table: "Applications",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
