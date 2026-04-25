@@ -11,6 +11,7 @@ namespace JobMS.Repository
         Task<Job> UpdateJobAsync(Job job, CancellationToken cancellationToken);
         Task<Job> DeleteJobAsync(long id, CancellationToken cancellationToken);
         Task<IEnumerable<SelectListItem>> GetJobDropdownAsync();
+        Task<IEnumerable<Job>> GetActiveJobsAsync(CancellationToken cancellationToken);
     }
 }
 
