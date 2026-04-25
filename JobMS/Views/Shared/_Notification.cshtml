@@ -1,0 +1,29 @@
+﻿@* _Notification.cshtml *@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    $(function () {
+
+        var success = '@TempData["success"]';
+        var error = '@TempData["error"]';
+        var info = '@TempData["info"]';
+        var warning = '@TempData["warning"]';
+
+        if (success) toastr.success(success);
+        if (error) toastr.error(error);
+        if (info) toastr.info(info);
+        if (warning) toastr.warning(warning);
+
+    });
+
+    toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-top-right",
+        timeOut: 3000
+    };
+</script>
