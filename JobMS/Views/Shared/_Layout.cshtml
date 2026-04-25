@@ -11,8 +11,7 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
 
     <!-- Custom Styles -->
     <style>
@@ -234,8 +233,6 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Toastr JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
         // Sidebar Collapse Toggle (Desktop)
@@ -276,31 +273,9 @@
         });
     </script>
 
-    // Toastr Notifications
 
-    <script>
-        $(document).ready(function () {
-
-            var success = '@TempData["success"]';
-            var error = '@TempData["error"]';
-            var info = '@TempData["info"]';
-            var warning = '@TempData["warning"]';
-
-            if (success) toastr.success(success);
-            if (error) toastr.error(error);
-            if (info) toastr.info(info);
-            if (warning) toastr.warning(warning);
-
-        });
-
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "timeOut": "3000"
-        };
-    </script>
-
+    <!-- ⭐ Notification Partial -->
+    <partial name="_Notification" />
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
