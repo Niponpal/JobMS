@@ -33,8 +33,13 @@ namespace JobMS.Controllers
         //}
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
+
             var jobs = await _jobRepository.GetActiveJobsAsync(cancellationToken);
-            return View(jobs);
+            if(jobs != null)
+            {
+                return View(jobs);
+            }   
+            return NotFound();
         }
 
 

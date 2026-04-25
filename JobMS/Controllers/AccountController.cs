@@ -44,6 +44,7 @@ public class AccountController : Controller
         if (!result.Success)
         {
             result.Errors.ForEach(e => ModelState.AddModelError("", e));
+            TempData["error"] = "Registration failed!";
             return View(model);
         }
 
@@ -55,6 +56,7 @@ public class AccountController : Controller
             await _signInManager.SignInAsync(user, isPersistent: false);
         }
 
+        TempData["success"] = "Registration successful!";
         return RedirectToAction("Index", "Dashboard");
     }
 
@@ -83,9 +85,12 @@ public class AccountController : Controller
         );
 
         if (result.Succeeded)
+        {
+            TempData["success"] = "Login successful!";
             return RedirectToAction("Index", "Dashboard");
+        }
 
-        ModelState.AddModelError("", "Invalid login attempt.");
+        TempData["error"] = "Invalid login attempt.";
         return View(model);
     }
 
@@ -95,6 +100,8 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
+
+        TempData["info"] = "Logged out successfully!";
         return RedirectToAction("Index", "Home");
     }
 
