@@ -79,4 +79,13 @@ public class JobRepository : IJobRepository
         }).ToListAsync();
         return data;
     }
+
+    public async Task<IEnumerable<Job>> GetActiveJobsAsync(CancellationToken cancellationToken)
+    {
+        return await _context.Jobs
+            .Where(j => j.Status == "Active" &&
+                       (j.Deadline == null || j.Deadline >= DateTime.Today))
+            .OrderByDescending(j => j.CreatedAt)
+            .ToListAsync(cancellationToken);
+    }
 }
