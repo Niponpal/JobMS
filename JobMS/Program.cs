@@ -1,6 +1,7 @@
 ﻿using JobMS;
 using JobMS.Auth_IdentityModel;
 using JobMS.Data;
+using JobMS.FilesUpload;
 using JobMS.Helper;
 using JobMS.Repository;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // ? Dependency Injection
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
-
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 // Add Identity with custom classes and long key
