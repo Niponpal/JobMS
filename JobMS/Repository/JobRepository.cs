@@ -26,6 +26,7 @@ public class JobRepository : IJobRepository
           return null;
         }
          _context.Jobs.Remove(job);
+        await _context.SaveChangesAsync(cancellationToken);
         return job;
     }
 
