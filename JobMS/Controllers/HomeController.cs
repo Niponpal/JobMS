@@ -22,15 +22,7 @@ namespace JobMS.Controllers
             _signInHelper = signInHelper;
         }
 
-        //public async Task<IActionResult> Index(CancellationToken cancellationToken)
-        //{
-        //    var alljobs = await _jobRepository.GetAllJobsAsync(cancellationToken);
-        //    if (alljobs != null)
-        //    {
-        //        return View(alljobs);
-        //    }
-        //    return NotFound();
-        //}
+  
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
 

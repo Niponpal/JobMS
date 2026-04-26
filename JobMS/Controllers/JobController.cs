@@ -1,7 +1,6 @@
 ﻿using JobMS.Models;
 using JobMS.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace JobMS.Controllers;
 
@@ -13,12 +12,14 @@ public class JobController : Controller
     {
         _jobRepository = jobRepository;
     }
+
     [HttpGet]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        var jobs =await _jobRepository.GetAllJobsAsync(cancellationToken);
+        var jobs = await _jobRepository.GetAllJobsAsync(cancellationToken);
         return View(jobs);
     }
+
     [HttpGet]
     public async Task<IActionResult> CreateOrEdit(long id, CancellationToken cancellationToken)
     {
@@ -31,46 +32,70 @@ public class JobController : Controller
             var job = await _jobRepository.GetJobsByIdAsync(id, cancellationToken);
             if (job == null)
             {
-                return NotFound();
+                TempData["error"] = "Job not found!";
+                return RedirectToAction(nameof(Index));
             }
             return View(job);
         }
     }
+
     [HttpPost]
     public async Task<IActionResult> CreateOrEdit(Job job, CancellationToken cancellationToken)
     {
-     
+        try
+        {
             if (job.Id == 0)
             {
                 await _jobRepository.AddJobAsync(job, cancellationToken);
-                return RedirectToAction(nameof(Index));
+                TempData["success"] = "Job created successfully!";
             }
             else
             {
                 await _jobRepository.UpdateJobAsync(job, cancellationToken);
+                TempData["success"] = "Job updated successfully!";
             }
-            return RedirectToAction(nameof(Index));
-       
+        }
+        catch (Exception)
+        {
+            TempData["error"] = "Something went wrong!";
+        }
+
+        return RedirectToAction(nameof(Index));
     }
+
     [HttpPost]
     public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
-        var job = await _jobRepository.DeleteJobAsync(id, cancellationToken);
-        if (job == null)
+        try
         {
-            return NotFound();
+            var job = await _jobRepository.DeleteJobAsync(id, cancellationToken);
+
+            if (job == null)
+            {
+                TempData["error"] = "Job not found!";
+            }
+            else
+            {
+                TempData["success"] = "Job deleted successfully!";
+            }
         }
+        catch (Exception)
+        {
+            TempData["error"] = "Delete failed!";
+        }
+
         return RedirectToAction(nameof(Index));
     }
-    [HttpGet]   
+
+    [HttpGet]
     public async Task<IActionResult> Details(long id, CancellationToken cancellationToken)
     {
         var job = await _jobRepository.GetJobsByIdAsync(id, cancellationToken);
         if (job == null)
         {
-            return NotFound();
+            TempData["error"] = "Job not found!";
+            return RedirectToAction(nameof(Index));
         }
         return View(job);
     }
-
 }

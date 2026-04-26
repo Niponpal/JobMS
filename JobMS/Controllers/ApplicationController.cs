@@ -55,22 +55,26 @@ namespace JobMS.Controllers
             });
         }
 
-        // =========================
-        // CREATE / EDIT (POST)
-        // =========================
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
         {
             var job = await _jobRepository.GetJobsByIdAsync(application.JobId, cancellationToken);
             if (job == null)
-                return BadRequest("Invalid Job");
+            {
+                TempData["error"] = "Invalid job!";
+                return RedirectToAction("Index", "Home");
+            }
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
+            {
+                TempData["error"] = "Please login first!";
                 return RedirectToAction("Login", "Account");
+            }
 
-            // ?? FIX: remove navigation validation issue
             ModelState.Remove("User");
             ModelState.Remove("Job");
             ModelState.Remove("ApplicationId");
@@ -81,7 +85,7 @@ namespace JobMS.Controllers
                 return View(application);
             }
 
-            // ?? Prevent duplicate application
+            // ? Duplicate check
             var exists = await _applicationRepository.IsAlreadyAppliedAsync(
                 application.JobId,
                 user.Id,
@@ -89,25 +93,34 @@ namespace JobMS.Controllers
 
             if (exists)
             {
-                ModelState.AddModelError("", "You already applied for this job.");
-                ViewBag.JobTitle = job.JobTitle;
-                return View(application);
+                TempData["warning"] = "You already applied for this job!";
+                return RedirectToAction("Index", "Home");
             }
 
             application.UserId = user.Id;
 
-            // AUTO ID
-            if (application.Id == 0)
+            try
             {
-                application.ApplicationId = "APP-" + DateTime.Now.Ticks;
-                await _applicationRepository.AddApplicationAsync(application, cancellationToken);
+                if (application.Id == 0)
+                {
+                    application.ApplicationId = "APP-" + DateTime.Now.Ticks;
+                    await _applicationRepository.AddApplicationAsync(application, cancellationToken);
+
+                    TempData["success"] = "Application submitted successfully!";
+                }
+                else
+                {
+                    await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
+
+                    TempData["success"] = "Application updated successfully!";
+                }
             }
-            else
+            catch (Exception)
             {
-                await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
+                TempData["error"] = "Something went wrong while submitting!";
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home"); // ?? important for showing toast on job page
         }
 
         // =========================
@@ -134,11 +147,23 @@ namespace JobMS.Controllers
         public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
         {
             if (id <= 0)
-                return BadRequest();
+            {
+                TempData["error"] = "Invalid request!";
+                return RedirectToAction(nameof(Index));
+            }
 
-            await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
+            try
+            {
+                await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
+                TempData["success"] = "Application deleted successfully!";
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Delete failed!";
+            }
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
