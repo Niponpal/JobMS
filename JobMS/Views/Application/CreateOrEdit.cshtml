@@ -61,7 +61,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-10 glass-card">
 
-            <form asp-action="CreateOrEdit">
+            <form asp-action="CreateOrEdit" enctype="multipart/form-data">
                 <input type="hidden" asp-for="Id" />
 
                 <div class="row">
@@ -103,24 +103,17 @@
                         <input asp-for="CompletionYear" class="form-control" />
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                  @*   <div class="col-md-4 mb-3">
                         <label>Resume</label>
                         <input asp-for="ResumePath" class="form-control" />
-                    </div>
-
-                    <!-- 🔥 Best Part (Dropdown from master) -->
-                    @* <div class="col-md-6 mb-3">
-                    
-                        <label asp-for="JobId" class="form-label fw-semibold">Book</label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text"><i class="bi bi-book"></i></span>
-                            <select asp-for="JobId" class="form-select" asp-items="ViewBag.JobId" required>
-                                <option value="">-- Select Book --</option>
-                            </select>
-                        </div>
-                        <span asp-validation-for="JobId" class="text-danger small"></span>
                     </div> *@
-                    <!-- Job Title Auto Display -->
+
+                    <div class="col-md-4 mb-3">
+                        <label>Resume</label>
+
+                        <input type="file" name="ResumeFile" class="form-control" />
+                    </div>
+                   
                     <!-- Job Title Auto Show -->
                     <div class="col-md-6 mb-3">
                         <label>Job Title</label>

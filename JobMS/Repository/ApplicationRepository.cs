@@ -42,14 +42,22 @@ public class ApplicationRepository : IApplicationRepository
         return null;
     }
 
+    //public async Task<Application?> GetApplicationByIdAsync(long id, CancellationToken cancellationToken)
+    //{
+    //   var data = await _context.Applications.FindAsync(id, cancellationToken);
+    //    if (data != null)
+    //    {
+    //        return data;
+    //    }
+    //    return null;
+    //}
+
     public async Task<Application?> GetApplicationByIdAsync(long id, CancellationToken cancellationToken)
     {
-       var data = await _context.Applications.FindAsync(id, cancellationToken);
-        if (data != null)
-        {
-            return data;
-        }
-        return null;
+        return await _context.Applications
+            .Include(x => x.User)
+            .Include(x => x.Job)
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<Application?> UpdateApplicationAsync(Application application, CancellationToken cancellationToken)

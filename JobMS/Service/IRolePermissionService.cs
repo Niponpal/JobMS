@@ -27,8 +27,8 @@ public class RolePermissionService : IRolePermissionService
         new()
         {
             { "Administrator", (true, true, true, true) },
-            { "Manager",       (true, true, false, true) },
-            { "Student",       (true, false, false, true) }
+            { "Employer",       (true, true, false, true) },
+            { "Candidate",       (true, false, false, true) }
         };
 
     // Core check (most permissive)

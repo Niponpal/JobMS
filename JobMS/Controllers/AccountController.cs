@@ -1,4 +1,5 @@
 ﻿using JobMS.Auth_IdentityModel;
+using JobMS.FilesUpload;
 using JobMS.Models.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +12,18 @@ public class AccountController : Controller
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
     private readonly IAuthService _authService;
+    private readonly IFileService _fileService;
 
     public AccountController(
         SignInManager<User> signInManager,
         UserManager<User> userManager,
-        IAuthService authService)
+        IAuthService authService,
+        IFileService fileService)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _authService = authService;
+        _fileService = fileService;
     }
 
     // ================= REGISTER GET =================
@@ -31,6 +35,35 @@ public class AccountController : Controller
     }
 
     // ================= REGISTER POST =================
+    //[HttpPost]
+    //[AllowAnonymous]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> Register(RegisterViewModel model)
+    //{
+    //    if (!ModelState.IsValid)
+    //        return View(model);
+
+    //    var result = await _authService.Register(model);
+
+    //    if (!result.Success)
+    //    {
+    //        result.Errors.ForEach(e => ModelState.AddModelError("", e));
+    //        TempData["error"] = "Registration failed!";
+    //        return View(model);
+    //    }
+
+    //    // AUTO LOGIN AFTER REGISTER
+    //    var user = await _userManager.FindByEmailAsync(model.Email);
+
+    //    if (user != null)
+    //    {
+    //        await _signInManager.SignInAsync(user, isPersistent: false);
+    //    }
+
+    //    TempData["success"] = "Registration successful!";
+    //    return RedirectToAction("Index", "Dashboard");
+    //}
+
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
@@ -39,20 +72,28 @@ public class AccountController : Controller
         if (!ModelState.IsValid)
             return View(model);
 
-        var result = await _authService.Register(model);
+        string? imageFileName = null;
+
+        if (model.ImageFile != null)
+        {
+            imageFileName = await _fileService.Upload(model.ImageFile, "uploads/users");
+        }
+
+        var result = await _authService.Register(model, imageFileName);
 
         if (!result.Success)
         {
             result.Errors.ForEach(e => ModelState.AddModelError("", e));
-            TempData["error"] = "Registration failed!";
             return View(model);
         }
 
-        // AUTO LOGIN AFTER REGISTER
         var user = await _userManager.FindByEmailAsync(model.Email);
 
         if (user != null)
         {
+            user.ImageUrl = imageFileName; // ✅ FIXED HERE
+            await _userManager.UpdateAsync(user);
+
             await _signInManager.SignInAsync(user, isPersistent: false);
         }
 
