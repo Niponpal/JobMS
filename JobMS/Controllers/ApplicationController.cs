@@ -1,4 +1,5 @@
 using JobMS.Auth_IdentityModel;
+using JobMS.FilesUpload;
 using JobMS.Models;
 using JobMS.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -13,15 +14,18 @@ namespace JobMS.Controllers
         private readonly IApplicationRepository _applicationRepository;
         private readonly IJobRepository _jobRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IFileService _fileService;
 
         public ApplicationController(
             IApplicationRepository applicationRepository,
             IJobRepository jobRepository,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            IFileService fileService)
         {
             _applicationRepository = applicationRepository;
             _jobRepository = jobRepository;
             _userManager = userManager;
+            _fileService = fileService;
         }
 
         // =========================
@@ -59,7 +63,7 @@ namespace JobMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateOrEdit(Application application, IFormFile? ResumeFile, CancellationToken cancellationToken)
         {
             var job = await _jobRepository.GetJobsByIdAsync(application.JobId, cancellationToken);
             if (job == null)
@@ -75,6 +79,12 @@ namespace JobMS.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            // ?? FILE UPLOAD
+            if (ResumeFile != null)
+            {
+                application.ResumePath = await _fileService.Upload(ResumeFile, "uploads/resumes");
+            }
+
             ModelState.Remove("User");
             ModelState.Remove("Job");
             ModelState.Remove("ApplicationId");
@@ -85,7 +95,6 @@ namespace JobMS.Controllers
                 return View(application);
             }
 
-            // ? Duplicate check
             var exists = await _applicationRepository.IsAlreadyAppliedAsync(
                 application.JobId,
                 user.Id,
@@ -105,23 +114,87 @@ namespace JobMS.Controllers
                 {
                     application.ApplicationId = "APP-" + DateTime.Now.Ticks;
                     await _applicationRepository.AddApplicationAsync(application, cancellationToken);
-
                     TempData["success"] = "Application submitted successfully!";
                 }
                 else
                 {
                     await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
-
                     TempData["success"] = "Application updated successfully!";
                 }
             }
-            catch (Exception)
+            catch
             {
                 TempData["error"] = "Something went wrong while submitting!";
             }
 
-            return RedirectToAction("Index", "Home"); // ?? important for showing toast on job page
+            return RedirectToAction("Index", "Home");
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
+        //{
+        //    var job = await _jobRepository.GetJobsByIdAsync(application.JobId, cancellationToken);
+        //    if (job == null)
+        //    {
+        //        TempData["error"] = "Invalid job!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        TempData["error"] = "Please login first!";
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    ModelState.Remove("User");
+        //    ModelState.Remove("Job");
+        //    ModelState.Remove("ApplicationId");
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.JobTitle = job.JobTitle;
+        //        return View(application);
+        //    }
+
+        //    // ? Duplicate check
+        //    var exists = await _applicationRepository.IsAlreadyAppliedAsync(
+        //        application.JobId,
+        //        user.Id,
+        //        cancellationToken);
+
+        //    if (exists)
+        //    {
+        //        TempData["warning"] = "You already applied for this job!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    application.UserId = user.Id;
+
+        //    try
+        //    {
+        //        if (application.Id == 0)
+        //        {
+        //            application.ApplicationId = "APP-" + DateTime.Now.Ticks;
+        //            await _applicationRepository.AddApplicationAsync(application, cancellationToken);
+
+        //            TempData["success"] = "Application submitted successfully!";
+        //        }
+        //        else
+        //        {
+        //            await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
+
+        //            TempData["success"] = "Application updated successfully!";
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        TempData["error"] = "Something went wrong while submitting!";
+        //    }
+
+        //    return RedirectToAction("Index", "Home"); // ?? important for showing toast on job page
+        //}
 
         // =========================
         // DETAILS

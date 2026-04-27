@@ -32,7 +32,7 @@ namespace JobMS.Models
         public int? CompletionYear { get; set; }
 
         [StringLength(200)]
-        public string ResumePath { get; set; }
+        public string? ResumePath { get; set; }
 
         // =========================
         // FOREIGN KEYS
