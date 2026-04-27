@@ -206,6 +206,7 @@ namespace JobMS.Controllers
                 return BadRequest();
 
             var data = await _applicationRepository.GetApplicationByIdAsync(id, cancellationToken);
+
             if (data == null)
                 return NotFound();
 
