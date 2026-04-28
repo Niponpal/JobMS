@@ -1,0 +1,16 @@
+﻿@using JobMS.Auth_IdentityModel
+@model User
+<h2>User Details</h2>
+
+<p><strong>Full Name:</strong> @Model.UserName</p>
+<p><strong>Email:</strong> @Model.Email</p>
+
+<p>
+    <strong>Profile Image:</strong><br />
+    <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ?
+                          "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" :
+                                   Url.Content("~/Images/" + Model.ImageUrl))"
+         style="width:150px;height:150px;object-fit:cover;border-radius:50%;" />
+</p>
+
+<a asp-controller="User" asp-action="EditProfile" class="btn btn-primary mt-3">Edit Profile</a>
