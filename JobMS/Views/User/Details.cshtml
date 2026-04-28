@@ -1,20 +1,123 @@
 ﻿@using JobMS.Auth_IdentityModel
 @model User
-<h2>User Details</h2>
 
-<p><strong>Full Name:</strong> @Model.UserName</p>
-<p><strong>Email:</strong> @Model.Email</p>
+<div class="min-vh-100 d-flex align-items-center py-5"
+     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
 
-<p>
-    <strong>Profile Image:</strong><br />
-    @* <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ?
-                          "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" :
-                                   Url.Content("~/Images/" + Model.ImageUrl))"
-         style="width:150px;height:150px;object-fit:cover;border-radius:50%;" /> *@
-    <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
-             ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-             : Url.Content("~/" + Model.ImageUrl))"
-         style="width:150px;height:150px;object-fit:cover;border-radius:50%;" />
-</p>
+    <!-- Background subtle pattern -->
+    <div style="position: absolute; inset: 0; background: url('https://picsum.photos/id/1015/1920/1080') no-repeat center center; background-size: cover; opacity: 0.15;"></div>
 
-<a asp-controller="User" asp-action="EditProfile" class="btn btn-primary mt-3">Edit Profile</a>
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+
+                <!-- Main Profile Card -->
+                <div class="card border-0 shadow-2xl rounded-5 overflow-hidden"
+                     style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3);">
+
+                    <!-- Hero Cover -->
+                    <div class="position-relative" style="height: 260px; background: linear-gradient(45deg, rgba(102,126,234,0.9), rgba(118,75,162,0.9));">
+                        <div class="position-absolute top-0 start-0 w-100 h-100"
+                             style="background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%);"></div>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="text-center position-relative" style="margin-top: -90px;">
+                        <div class="d-inline-block position-relative">
+                            <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
+                                                                         ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                                                                         : Url.Content("~/" + Model.ImageUrl))"
+                                 class="rounded-circle shadow-lg border border-5 border-white"
+                                 style="width: 180px; height: 180px; object-fit: cover; box-shadow: 0 15px 35px rgba(0,0,0,0.3);"
+                                 alt="Profile Picture" />
+
+                            <!-- Subtle glow ring -->
+                            <div class="position-absolute top-50 start-50 translate-middle rounded-circle border border-4 border-white"
+                                 style="width: 200px; height: 200px; opacity: 0.4; box-shadow: 0 0 60px rgba(255,255,255,0.6);"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-body px-5 pb-5 pt-2 text-center">
+                        <h2 class="fw-bold text-white mb-1">@Model.UserName</h2>
+                        <p class="text-white-50 fs-5 mb-4">@Model.Email</p>
+
+                        <hr class="border-white opacity-25 my-4">
+
+                        <!-- Details Grid -->
+                        <div class="row g-4 text-start">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-25 text-white rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                                        📅
+                                    </div>
+                                    <div>
+                                        <strong class="text-white-50 small">REGISTERED ON</strong>
+                                        <p class="text-white mb-0 fw-medium">@Model.RegisterDate.ToString("dd MMMM yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-25 text-white rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                                        🕒
+                                    </div>
+                                    <div>
+                                        <strong class="text-white-50 small">CREATED AT</strong>
+                                        <p class="text-white mb-0 fw-medium">@Model.CreatedAt.ToString("dd MMM yyyy • hh:mm tt")</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-25 text-white rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                                        🔄
+                                    </div>
+                                    <div>
+                                        <strong class="text-white-50 small">LAST UPDATED</strong>
+                                        <p class="text-white mb-0 fw-medium">
+                                            @(Model.UpdatedDate.HasValue
+                                                                                        ? Model.UpdatedDate.Value.ToString("dd MMM yyyy • hh:mm tt")
+                                                                                        : "Never Updated")
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white bg-opacity-25 text-white rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+                                        🆔
+                                    </div>
+                                    <div>
+                                        <strong class="text-white-50 small">USER ID</strong>
+                                        <p class="text-white mb-0 fw-medium font-monospace">@Model.Id</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-center gap-3 mt-5">
+                            <a asp-controller="User" asp-action="EditProfile"
+                               class="btn btn-light px-5 py-3 rounded-pill fw-semibold shadow-sm d-flex align-items-center gap-2">
+                                <span>✏️</span> Edit Profile
+                            </a>
+
+                            <a asp-controller="Home" asp-action="Index"
+                               class="btn btn-outline-light px-5 py-3 rounded-pill fw-semibold d-flex align-items-center gap-2">
+                                ⬅ Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optional subtle footer note -->
+                <div class="text-center mt-4">
+                    <small class="text-white-50">Member since @Model.RegisterDate.Year</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
