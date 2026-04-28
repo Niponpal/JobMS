@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "_LayoutPublic";
+    ViewData["Title"] = "About Us";
+}
+
+<div class="min-vh-100 py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-dark">About JobMS</h1>
+            <div class="mx-auto mt-3" style="width: 80px; height: 4px; background: linear-gradient(to right, #667eea, #764ba2); border-radius: 2px;"></div>
+            <p class="lead text-muted mt-4" style="max-width: 700px; margin: 0 auto;">
+                A modern and intelligent Job Management System designed to bridge the gap between talented students and great opportunities.
+            </p>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="card border-0 shadow-lg rounded-5 overflow-hidden mb-5"
+             style="background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);">
+
+            <div class="card-body p-5">
+
+                <!-- Our Mission -->
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="bg-primary text-white rounded-4 p-3 fs-3">🎯</div>
+                            <h3 class="fw-bold mb-0">Our Mission</h3>
+                        </div>
+                        <p class="lead text-muted">
+                            JobMS aims to simplify the entire job application process by providing a clean, efficient, and user-friendly platform
+                            for students and recruiters alike.
+                        </p>
+                        <p class="text-muted">
+                            We believe every student deserves an equal opportunity to showcase their talent and build a successful career.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="bg-light rounded-4 p-4">
+                            <h5 class="fw-semibold text-primary mb-3">Why JobMS?</h5>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <span class="text-success mt-1">✔</span>
+                                    <span>Centralized job application tracking</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <span class="text-success mt-1">✔</span>
+                                    <span>Professional profile management</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3 mb-3">
+                                    <span class="text-success mt-1">✔</span>
+                                    <span>Secure and fast authentication system</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-3">
+                                    <span class="text-success mt-1">✔</span>
+                                    <span>Beautiful and intuitive user interface</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- Features Section -->
+                <h4 class="fw-bold mb-4 text-center">Key Features</h4>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="text-center p-4 h-100 border rounded-4">
+                            <div class="mb-3 fs-1">👤</div>
+                            <h5>Profile Management</h5>
+                            <p class="text-muted small">Create and manage your professional profile with photo upload.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="text-center p-4 h-100 border rounded-4">
+                            <div class="mb-3 fs-1">📋</div>
+                            <h5>Application Tracking</h5>
+                            <p class="text-muted small">Track all your job applications in one organized dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="text-center p-4 h-100 border rounded-4">
+                            <div class="mb-3 fs-1">🔐</div>
+                            <h5>Secure Authentication</h5>
+                            <p class="text-muted small">Built with industry-standard Identity & security practices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- Developer Section -->
+                <div class="text-center">
+                    <h4 class="fw-bold mb-3">Meet the Developer</h4>
+                    <div class="d-inline-flex align-items-center gap-4 bg-light rounded-5 px-5 py-4">
+                        <div class="text-primary fs-1">👨‍💻</div>
+                        <div class="text-start">
+                            <h5 class="mb-1">Nipon Chondra Pal</h5>
+                            <p class="text-muted mb-1">
+                                Computer Science Student & Aspiring Full-Stack Developer
+                            </p>
+                            <p class="text-muted small">
+                                Passionate about ASP.NET Core, modern web technologies, and building clean, scalable applications.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- Technology Stack -->
+                <h4 class="fw-bold text-center mb-4">Technology Stack</h4>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">ASP.NET Core MVC</span>
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">C#</span>
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">Entity Framework Core</span>
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">SQL Server</span>
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">Bootstrap 5</span>
+                            <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">Identity System</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+            <a asp-controller="Home" asp-action="Index"
+               class="btn btn-outline-primary px-5 py-3 rounded-pill fw-semibold">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+</div>
