@@ -7,9 +7,13 @@
 
 <p>
     <strong>Profile Image:</strong><br />
-    <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ?
+    @* <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ?
                           "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" :
                                    Url.Content("~/Images/" + Model.ImageUrl))"
+         style="width:150px;height:150px;object-fit:cover;border-radius:50%;" /> *@
+    <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
+             ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+             : Url.Content("~/" + Model.ImageUrl))"
          style="width:150px;height:150px;object-fit:cover;border-radius:50%;" />
 </p>
 

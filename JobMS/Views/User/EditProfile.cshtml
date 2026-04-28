@@ -1,18 +1,31 @@
-﻿﻿@{
-ViewData["Title"] = "Edit Profile";
+﻿@using JobMS.Auth_IdentityModel
+@model User
+
+@{
+    ViewData["Title"] = "Edit Profile";
 }
 
 <h2>Edit Profile</h2>
 
 <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+
     <div class="mb-3">
-        <label for="FullName" class="form-label">Full Name</label>
-        <input type="text" name="FullName" class="form-control" placeholder="Enter full name" />
+        <label class="form-label">Full Name</label>
+        <input asp-for="UserName" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label for="ProfileImage" class="form-label">Profile Image</label>
+        <label class="form-label">Profile Image</label>
         <input type="file" name="ProfileImage" class="form-control" />
+    </div>
+
+    <!-- ✅ Current Image -->
+    <div class="mb-3">
+        <label>Current Image:</label><br />
+        <img src="@(string.IsNullOrEmpty(Model?.ImageUrl)
+                         ? "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                         : Url.Content("~/" + Model.ImageUrl))"
+             style="width:120px;height:120px;object-fit:cover;border-radius:50%;" />
     </div>
 
     <button type="submit" class="btn btn-success">Save</button>
