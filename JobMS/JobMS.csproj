@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Repository\Auth\" />
+    <Folder Include="wwwroot\uploads\resumes\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobMS.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JobMS.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JobMS.Controllers
 {
