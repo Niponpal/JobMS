@@ -49,6 +49,11 @@ namespace JobMS.Controllers
             return View(job);   
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
