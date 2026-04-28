@@ -216,6 +216,30 @@ namespace JobMS.Controllers
         // =========================
         // DELETE
         // =========================
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
+        //{
+        //    if (id <= 0)
+        //    {
+        //        TempData["error"] = "Invalid request!";
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    try
+        //    {
+        //        await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
+        //        TempData["success"] = "Application deleted successfully!";
+        //    }
+        //    catch (Exception)
+        //    {
+        //        TempData["error"] = "Delete failed!";
+        //    }
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
@@ -228,7 +252,20 @@ namespace JobMS.Controllers
 
             try
             {
-                await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
+                var app = await _applicationRepository.GetApplicationByIdAsync(id, cancellationToken);
+
+                if (app != null)
+                {
+                    // ?? DELETE FILE FIRST
+                    if (!string.IsNullOrEmpty(app.ResumePath))
+                    {
+                        var fileName = Path.GetFileName(app.ResumePath);
+                        _fileService.DeleteFile(fileName, "uploads/resumes");
+                    }
+
+                    await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
+                }
+
                 TempData["success"] = "Application deleted successfully!";
             }
             catch (Exception)
@@ -238,6 +275,5 @@ namespace JobMS.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
