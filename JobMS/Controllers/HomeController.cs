@@ -1,6 +1,8 @@
+using JobMS.Auth_IdentityModel;
 using JobMS.Helper;
 using JobMS.Models;
 using JobMS.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -12,14 +14,20 @@ namespace JobMS.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IJobRepository _jobRepository;
         private readonly ISignInHelper _signInHelper;
+        private readonly UserManager<User> _userManager;
+        private readonly IApplicationRepository _applicationRepository;
 
 
 
-        public HomeController(ILogger<HomeController> logger, IJobRepository jobRepository, ISignInHelper signInHelper)
+        public HomeController(ILogger<HomeController> logger, IJobRepository jobRepository, ISignInHelper signInHelper, UserManager<User> userManager, IApplicationRepository applicationRepository)
         {
             _logger = logger;
             _jobRepository = jobRepository;
             _signInHelper = signInHelper;
+            _userManager = userManager;
+            _applicationRepository = applicationRepository;
+            
+
         }
 
   
@@ -32,6 +40,19 @@ namespace JobMS.Controllers
                 return View(jobs);
             }   
             return NotFound();
+        }
+
+        public async Task<IActionResult> MyJobs(CancellationToken cancellationToken)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+                return RedirectToAction("Login", "Account");
+
+            var jobs = await _applicationRepository
+                .GetAppliedJobsByUserAsync(user.Id, cancellationToken);
+
+            return View(jobs);
         }
 
 

@@ -130,75 +130,6 @@ namespace JobMS.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateOrEdit(Application application, CancellationToken cancellationToken)
-        //{
-        //    var job = await _jobRepository.GetJobsByIdAsync(application.JobId, cancellationToken);
-        //    if (job == null)
-        //    {
-        //        TempData["error"] = "Invalid job!";
-        //        return RedirectToAction("Index", "Home");
-        //    }
-
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        TempData["error"] = "Please login first!";
-        //        return RedirectToAction("Login", "Account");
-        //    }
-
-        //    ModelState.Remove("User");
-        //    ModelState.Remove("Job");
-        //    ModelState.Remove("ApplicationId");
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.JobTitle = job.JobTitle;
-        //        return View(application);
-        //    }
-
-        //    // ? Duplicate check
-        //    var exists = await _applicationRepository.IsAlreadyAppliedAsync(
-        //        application.JobId,
-        //        user.Id,
-        //        cancellationToken);
-
-        //    if (exists)
-        //    {
-        //        TempData["warning"] = "You already applied for this job!";
-        //        return RedirectToAction("Index", "Home");
-        //    }
-
-        //    application.UserId = user.Id;
-
-        //    try
-        //    {
-        //        if (application.Id == 0)
-        //        {
-        //            application.ApplicationId = "APP-" + DateTime.Now.Ticks;
-        //            await _applicationRepository.AddApplicationAsync(application, cancellationToken);
-
-        //            TempData["success"] = "Application submitted successfully!";
-        //        }
-        //        else
-        //        {
-        //            await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
-
-        //            TempData["success"] = "Application updated successfully!";
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        TempData["error"] = "Something went wrong while submitting!";
-        //    }
-
-        //    return RedirectToAction("Index", "Home"); // ?? important for showing toast on job page
-        //}
-
-        // =========================
-        // DETAILS
-        // =========================
         [HttpGet]
         public async Task<IActionResult> Details(long id, CancellationToken cancellationToken)
         {
@@ -212,32 +143,6 @@ namespace JobMS.Controllers
 
             return View(data);
         }
-
-        // =========================
-        // DELETE
-        // =========================
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
-        //{
-        //    if (id <= 0)
-        //    {
-        //        TempData["error"] = "Invalid request!";
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    try
-        //    {
-        //        await _applicationRepository.DeleteApplicationAsync(id, cancellationToken);
-        //        TempData["success"] = "Application deleted successfully!";
-        //    }
-        //    catch (Exception)
-        //    {
-        //        TempData["error"] = "Delete failed!";
-        //    }
-
-        //    return RedirectToAction(nameof(Index));
-        //}
 
 
         [HttpPost]

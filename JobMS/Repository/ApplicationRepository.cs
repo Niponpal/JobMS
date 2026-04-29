@@ -22,7 +22,7 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task<Application> DeleteApplicationAsync(long id, CancellationToken cancellationToken)
     {
-       var data =await _context.Applications.FindAsync( id, cancellationToken);
+        var data = await _context.Applications.FindAsync(id, cancellationToken);
         if (data != null)
         {
             _context.Applications.Remove(data);
@@ -42,15 +42,7 @@ public class ApplicationRepository : IApplicationRepository
         return null;
     }
 
-    //public async Task<Application?> GetApplicationByIdAsync(long id, CancellationToken cancellationToken)
-    //{
-    //   var data = await _context.Applications.FindAsync(id, cancellationToken);
-    //    if (data != null)
-    //    {
-    //        return data;
-    //    }
-    //    return null;
-    //}
+
 
     public async Task<Application?> GetApplicationByIdAsync(long id, CancellationToken cancellationToken)
     {
@@ -86,5 +78,15 @@ public class ApplicationRepository : IApplicationRepository
     {
         return await _context.Applications
             .AnyAsync(x => x.JobId == jobId && x.UserId == userId, cancellationToken);
+    }
+
+
+
+    public async Task<List<Job>> GetAppliedJobsByUserAsync(long userId, CancellationToken cancellationToken)
+    {
+        return await _context.Applications
+            .Where(x => x.UserId == userId)
+            .Select(x => x.Job)   // শুধু Job নিচ্ছি
+            .ToListAsync(cancellationToken);
     }
 }
