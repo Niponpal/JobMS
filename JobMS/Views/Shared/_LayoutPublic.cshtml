@@ -175,10 +175,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/Job">Jobs</a></li>
+                    @* <li class="nav-item"><a class="nav-link active" href="/Job">Jobs</a></li> *@
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="index">Jobs</a></li>
                     @* <li class="nav-item"><a class="nav-link" href="/Home/About">About</a></li> *@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="ApplyedJob">All Apply Job</a>
                     </li>
 
                     <!-- Auth Section -->
