@@ -3,32 +3,37 @@
     ViewData["Title"] = "About Us";
 }
 
-<div class="min-vh-100 py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+<div class="min-vh-100 py-5">
     <div class="container">
 
         <!-- Hero Section -->
         <div class="text-center mb-5">
-            <h1 class="display-4 fw-bold text-dark">About JobMS</h1>
-            <div class="mx-auto mt-3" style="width: 80px; height: 4px; background: linear-gradient(to right, #667eea, #764ba2); border-radius: 2px;"></div>
-            <p class="lead text-muted mt-4" style="max-width: 700px; margin: 0 auto;">
+            <h1 class="display-4 fw-bold mb-3" style="color: var(--bs-emphasis-color);">About JobMS</h1>
+
+            <div class="mx-auto mt-3"
+                 style="width: 90px; height: 5px; background: linear-gradient(to right, #14b8a6, #0f766e); border-radius: 4px;">
+            </div>
+
+            <p class="lead mt-4 text-muted" style="max-width: 720px; margin: 0 auto;">
                 A modern and intelligent Job Management System designed to bridge the gap between talented students and great opportunities.
             </p>
         </div>
 
         <!-- Main Content Card -->
-        <div class="card border-0 shadow-lg rounded-5 overflow-hidden mb-5"
-             style="background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);">
-
-            <div class="card-body p-5">
+        <div class="glass rounded-5 overflow-hidden mb-5 shadow-lg">
+            <div class="card-body p-5 p-lg-6">
 
                 <!-- Our Mission -->
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
                         <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="bg-primary text-white rounded-4 p-3 fs-3">🎯</div>
+                            <div class="bg-success text-white rounded-4 p-3 fs-2 d-flex align-items-center justify-content-center"
+                                 style="width: 58px; height: 58px;">
+                                🎯
+                            </div>
                             <h3 class="fw-bold mb-0">Our Mission</h3>
                         </div>
-                        <p class="lead text-muted">
+                        <p class="lead">
                             JobMS aims to simplify the entire job application process by providing a clean, efficient, and user-friendly platform
                             for students and recruiters alike.
                         </p>
@@ -38,23 +43,23 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="bg-light rounded-4 p-4">
-                            <h5 class="fw-semibold text-primary mb-3">Why JobMS?</h5>
+                        <div class="glass rounded-4 p-4">
+                            <h5 class="fw-semibold text-teal mb-3">Why JobMS?</h5>
                             <ul class="list-unstyled">
                                 <li class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="text-success mt-1">✔</span>
+                                    <span class="text-success mt-1 fs-5">✔</span>
                                     <span>Centralized job application tracking</span>
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="text-success mt-1">✔</span>
-                                    <span>Professional profile management</span>
+                                    <span class="text-success mt-1 fs-5">✔</span>
+                                    <span>Professional profile management with photo upload</span>
                                 </li>
                                 <li class="d-flex align-items-start gap-3 mb-3">
-                                    <span class="text-success mt-1">✔</span>
+                                    <span class="text-success mt-1 fs-5">✔</span>
                                     <span>Secure and fast authentication system</span>
                                 </li>
                                 <li class="d-flex align-items-start gap-3">
-                                    <span class="text-success mt-1">✔</span>
+                                    <span class="text-success mt-1 fs-5">✔</span>
                                     <span>Beautiful and intuitive user interface</span>
                                 </li>
                             </ul>
@@ -64,42 +69,48 @@
 
                 <hr class="my-5">
 
-                <!-- Features Section -->
+                <!-- Key Features -->
                 <h4 class="fw-bold mb-4 text-center">Key Features</h4>
                 <div class="row g-4">
                     <div class="col-md-6 col-lg-4">
-                        <div class="text-center p-4 h-100 border rounded-4">
+                        <div class="glass text-center p-4 h-100 rounded-4 feature-card">
                             <div class="mb-3 fs-1">👤</div>
-                            <h5>Profile Management</h5>
-                            <p class="text-muted small">Create and manage your professional profile with photo upload.</p>
+                            <h5 class="fw-semibold">Profile Management</h5>
+                            <p class="text-muted small mt-2">
+                                Create and manage your professional profile with photo upload.
+                            </p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="text-center p-4 h-100 border rounded-4">
+                        <div class="glass text-center p-4 h-100 rounded-4 feature-card">
                             <div class="mb-3 fs-1">📋</div>
-                            <h5>Application Tracking</h5>
-                            <p class="text-muted small">Track all your job applications in one organized dashboard.</p>
+                            <h5 class="fw-semibold">Application Tracking</h5>
+                            <p class="text-muted small mt-2">
+                                Track all your job applications in one organized dashboard.
+                            </p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="text-center p-4 h-100 border rounded-4">
+                        <div class="glass text-center p-4 h-100 rounded-4 feature-card">
                             <div class="mb-3 fs-1">🔐</div>
-                            <h5>Secure Authentication</h5>
-                            <p class="text-muted small">Built with industry-standard Identity & security practices.</p>
+                            <h5 class="fw-semibold">Secure Authentication</h5>
+                            <p class="text-muted small mt-2">
+                                Built with industry-standard Identity & security practices.
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <hr class="my-5">
 
-                <!-- Developer Section -->
+                <!-- Meet the Developer -->
                 <div class="text-center">
-                    <h4 class="fw-bold mb-3">Meet the Developer</h4>
-                    <div class="d-inline-flex align-items-center gap-4 bg-light rounded-5 px-5 py-4">
-                        <div class="text-primary fs-1">👨‍💻</div>
+                    <h4 class="fw-bold mb-4">Meet the Developer</h4>
+                    <div class="glass d-inline-flex align-items-center gap-4 rounded-5 px-5 py-4">
+                        <div class="text-teal fs-1">👨‍💻</div>
                         <div class="text-start">
                             <h5 class="mb-1">Nipon Chondra Pal</h5>
-                            <p class="text-muted mb-1">
+                            <p class="mb-1 fw-medium">
                                 Computer Science Student & Aspiring Full-Stack Developer
                             </p>
                             <p class="text-muted small">
@@ -114,7 +125,7 @@
                 <!-- Technology Stack -->
                 <h4 class="fw-bold text-center mb-4">Technology Stack</h4>
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                         <div class="d-flex flex-wrap justify-content-center gap-3">
                             <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">ASP.NET Core MVC</span>
                             <span class="badge bg-primary fs-6 px-4 py-3 rounded-pill">C#</span>
@@ -125,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -135,5 +147,37 @@
                 ← Back to Home
             </a>
         </div>
+
     </div>
 </div>
+
+<style>
+    .feature-card {
+        transition: all 0.3s ease;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #14b8a6 !important;
+        }
+
+    .glass {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    [data-bs-theme="light"] .glass {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .text-teal {
+        color: #14b8a6;
+    }
+
+    [data-bs-theme="light"] .text-teal {
+        color: #0f766e;
+    }
+</style>
