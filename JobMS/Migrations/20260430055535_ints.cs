@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobMS.Migrations
 {
     /// <inheritdoc />
-    public partial class FixApplication : Migration
+    public partial class ints : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -80,7 +80,18 @@ namespace JobMS.Migrations
                     SalaryRange = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Deadline = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JobLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmploymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompensationAndBenefits = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SkillsAndExpertise = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Responsibilities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalRequirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Experience = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Education = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,9 +216,9 @@ namespace JobMS.Migrations
                     ExpectionSalary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     Degree = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     University = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CGPA = table.Column<decimal>(type: "decimal(3,2)", precision: 3, scale: 2, nullable: true),
+                    CGPA = table.Column<decimal>(type: "decimal(18,2)", precision: 3, scale: 2, nullable: true),
                     CompletionYear = table.Column<int>(type: "int", nullable: true),
-                    ResumePath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ResumePath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     JobId = table.Column<long>(type: "bigint", nullable: false),
                     UserId1 = table.Column<long>(type: "bigint", nullable: true)
@@ -249,9 +260,9 @@ namespace JobMS.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "CreatedBy", "CreatedDate", "Email", "EmailConfirmed", "ImageUrl", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisterDate", "SecurityStamp", "TwoFactorEnabled", "UpdatedBy", "UpdatedDate", "UserId", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, 0, "26ca1e8f-78a7-44ba-ab01-fbe4a179f17b", new DateTime(2026, 4, 22, 1, 20, 16, 571, DateTimeKind.Local).AddTicks(2734), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, null, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAED1kv/O6IDoYJfwAAHHBdyvauDQa5k2+i57BEbNlcsTzLNmR144orft1psEelOQhTg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "51cebf61-37f6-4b88-bdc9-1bf0e1232f66", false, null, null, null, "admin@localhost.com" },
-                    { 2L, 0, "c942c4b0-0269-467c-8644-6c07e6592abd", new DateTime(2026, 4, 22, 1, 20, 16, 621, DateTimeKind.Local).AddTicks(3577), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employer@localhost.com", true, null, false, null, "EMPLOYER@LOCALHOST.COM", "EMPLOYER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEDw/IsDUO5/Va8qACn3fm2t9gebPfvIluox6r8rnECSdl/3FWEYeZ1hkOIHAvbjHVg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "9669fff8-896e-4f83-b90c-bd22da20e266", false, null, null, null, "employer@localhost.com" },
-                    { 3L, 0, "ec323937-07aa-4833-9a59-16502e23cff2", new DateTime(2026, 4, 22, 1, 20, 16, 667, DateTimeKind.Local).AddTicks(9583), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "candidate@localhost.com", true, null, false, null, "CANDIDATE@LOCALHOST.COM", "CANDIDATE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMDkzTsq//jmyTYA4FBAS3C3CP+/ZHUUlB4+Hw8e4krdLRgEjcpZAkwID9DbWlCkPg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e82e1d10-d739-45c6-8b88-c2481362d327", false, null, null, null, "candidate@localhost.com" }
+                    { 1L, 0, "9aeffeb5-658e-4862-8a91-93cc62ef47db", new DateTime(2026, 4, 30, 11, 55, 34, 900, DateTimeKind.Local).AddTicks(8050), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, null, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEDTULhE/5iDr8icVsvEd6tHToVqM5IoZvgv83UEA4yq3KiOo+Sa4S/XU8XUPH+yemQ==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "c5a9b5d8-2b26-435d-9d75-9166aca5853f", false, null, null, null, "admin@localhost.com" },
+                    { 2L, 0, "36d2e3a1-ad7d-42c5-85d6-0cd662f288d9", new DateTime(2026, 4, 30, 11, 55, 34, 950, DateTimeKind.Local).AddTicks(5592), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employer@localhost.com", true, null, false, null, "EMPLOYER@LOCALHOST.COM", "EMPLOYER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOHdLX6hDV9uM1FKitjZ/O6+DOVpFUwfqR67eKA/nEx2IXkkYq0spi/shw9CdIXFKA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "3ade6930-7d30-4627-b95e-f363b57def0d", false, null, null, null, "employer@localhost.com" },
+                    { 3L, 0, "2edb1164-8e5f-4f29-858a-21ab912c06bb", new DateTime(2026, 4, 30, 11, 55, 34, 996, DateTimeKind.Local).AddTicks(9541), 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "candidate@localhost.com", true, null, false, null, "CANDIDATE@LOCALHOST.COM", "CANDIDATE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEKjwwdxc+ACLfYRtmtv5v0ESQmYf6s7HI9IA76+xOcbaSbIQXMxnsJTNoVU50XlEsA==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ea156196-6c8a-4852-8671-27e09c584adc", false, null, null, null, "candidate@localhost.com" }
                 });
 
             migrationBuilder.InsertData(
