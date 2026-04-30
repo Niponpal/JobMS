@@ -63,6 +63,18 @@ public class JobRepository : IJobRepository
             data.SalaryRange = job.SalaryRange;
             data.Deadline = job.Deadline;
             data.Status = job.Status;
+            data.CompanyName = job.CompanyName;
+            data.CompanyInformation = job.CompanyInformation;
+            data.JobLocation = job.JobLocation;
+            data.JobLocation = job.JobLocation;
+            data.Gender = job.Gender;
+            data.EmploymentStatus = job.EmploymentStatus;   
+            data.CompensationAndBenefits = job.CompensationAndBenefits;
+            data.SkillsAndExpertise = job.SkillsAndExpertise;
+            data.Responsibilities = job.Responsibilities;
+            data.AdditionalRequirements = job.AdditionalRequirements;
+            data.Experience = job.Experience;
+            data.Education = job.Education;
             await _context.SaveChangesAsync(cancellationToken);
             return data;
         }

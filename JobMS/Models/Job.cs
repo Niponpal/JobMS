@@ -32,29 +32,29 @@ namespace JobMS.Models
         // NEW FIELDS (Job Details)
         // =========================
 
-        //// Company Info
-        //public string? CompanyName { get; set; }
-        //public string? CompanyInformation { get; set; }
+        // Company Info
+        public string? CompanyName { get; set; }
+        public string? CompanyInformation { get; set; }
 
-        //// Location
-        //public string? JobLocation { get; set; }
+        // Location
+        public string? JobLocation { get; set; }
 
-        //// Basic Info
-        //public string? Gender { get; set; }
-        //public string? EmploymentStatus { get; set; }
+        // Basic Info
+        public string? Gender { get; set; }
+        public string? EmploymentStatus { get; set; }
 
-        //// Salary & Benefits
-        //public string? CompensationAndBenefits { get; set; }
+        // Salary & Benefits
+        public string? CompensationAndBenefits { get; set; }
 
-        //// Skills & Responsibilities
-        //public string? SkillsAndExpertise { get; set; }
-        //public string? Responsibilities { get; set; }
+        // Skills & Responsibilities
+        public string? SkillsAndExpertise { get; set; }
+        public string? Responsibilities { get; set; }
 
-        //// Requirements
-        //public string? AdditionalRequirements { get; set; }
+        // Requirements
+        public string? AdditionalRequirements { get; set; }
 
-        //// Experience & Education
-        //public string? Experience { get; set; }
-        //public string? Education { get; set; }
+        // Experience & Education
+        public string? Experience { get; set; }
+        public string? Education { get; set; }
     }
 }
