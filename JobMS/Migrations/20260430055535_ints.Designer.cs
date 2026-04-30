@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260421192017_FixApplication")]
-    partial class FixApplication
+    [Migration("20260430055535_ints")]
+    partial class ints
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,8 +225,8 @@ namespace JobMS.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26ca1e8f-78a7-44ba-ab01-fbe4a179f17b",
-                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 571, DateTimeKind.Local).AddTicks(2734),
+                            ConcurrencyStamp = "9aeffeb5-658e-4862-8a91-93cc62ef47db",
+                            CreatedAt = new DateTime(2026, 4, 30, 11, 55, 34, 900, DateTimeKind.Local).AddTicks(8050),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
@@ -234,10 +234,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAED1kv/O6IDoYJfwAAHHBdyvauDQa5k2+i57BEbNlcsTzLNmR144orft1psEelOQhTg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDTULhE/5iDr8icVsvEd6tHToVqM5IoZvgv83UEA4yq3KiOo+Sa4S/XU8XUPH+yemQ==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "51cebf61-37f6-4b88-bdc9-1bf0e1232f66",
+                            SecurityStamp = "c5a9b5d8-2b26-435d-9d75-9166aca5853f",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -245,8 +245,8 @@ namespace JobMS.Migrations
                         {
                             Id = 2L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c942c4b0-0269-467c-8644-6c07e6592abd",
-                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 621, DateTimeKind.Local).AddTicks(3577),
+                            ConcurrencyStamp = "36d2e3a1-ad7d-42c5-85d6-0cd662f288d9",
+                            CreatedAt = new DateTime(2026, 4, 30, 11, 55, 34, 950, DateTimeKind.Local).AddTicks(5592),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "employer@localhost.com",
@@ -254,10 +254,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYER@LOCALHOST.COM",
                             NormalizedUserName = "EMPLOYER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDw/IsDUO5/Va8qACn3fm2t9gebPfvIluox6r8rnECSdl/3FWEYeZ1hkOIHAvbjHVg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOHdLX6hDV9uM1FKitjZ/O6+DOVpFUwfqR67eKA/nEx2IXkkYq0spi/shw9CdIXFKA==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "9669fff8-896e-4f83-b90c-bd22da20e266",
+                            SecurityStamp = "3ade6930-7d30-4627-b95e-f363b57def0d",
                             TwoFactorEnabled = false,
                             UserName = "employer@localhost.com"
                         },
@@ -265,8 +265,8 @@ namespace JobMS.Migrations
                         {
                             Id = 3L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec323937-07aa-4833-9a59-16502e23cff2",
-                            CreatedAt = new DateTime(2026, 4, 22, 1, 20, 16, 667, DateTimeKind.Local).AddTicks(9583),
+                            ConcurrencyStamp = "2edb1164-8e5f-4f29-858a-21ab912c06bb",
+                            CreatedAt = new DateTime(2026, 4, 30, 11, 55, 34, 996, DateTimeKind.Local).AddTicks(9541),
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "candidate@localhost.com",
@@ -274,10 +274,10 @@ namespace JobMS.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CANDIDATE@LOCALHOST.COM",
                             NormalizedUserName = "CANDIDATE@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMDkzTsq//jmyTYA4FBAS3C3CP+/ZHUUlB4+Hw8e4krdLRgEjcpZAkwID9DbWlCkPg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKjwwdxc+ACLfYRtmtv5v0ESQmYf6s7HI9IA76+xOcbaSbIQXMxnsJTNoVU50XlEsA==",
                             PhoneNumberConfirmed = false,
                             RegisterDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "e82e1d10-d739-45c6-8b88-c2481362d327",
+                            SecurityStamp = "ea156196-6c8a-4852-8671-27e09c584adc",
                             TwoFactorEnabled = false,
                             UserName = "candidate@localhost.com"
                         });
@@ -394,7 +394,7 @@ namespace JobMS.Migrations
 
                     b.Property<decimal?>("CGPA")
                         .HasPrecision(3, 2)
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("CompletionYear")
                         .HasColumnType("int");
@@ -421,7 +421,6 @@ namespace JobMS.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ResumePath")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -455,6 +454,18 @@ namespace JobMS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("AdditionalRequirements")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompensationAndBenefits")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -466,17 +477,38 @@ namespace JobMS.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("Education")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmploymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Experience")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("JobID")
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("JobLocation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("Responsibilities")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SalaryRange")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SkillsAndExpertise")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
