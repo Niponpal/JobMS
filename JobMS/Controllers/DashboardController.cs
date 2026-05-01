@@ -1,9 +1,11 @@
 ﻿using JobMS.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobMS.Controllers
 {
+    
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,7 +15,7 @@ namespace JobMS.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             // KPI Calculations
