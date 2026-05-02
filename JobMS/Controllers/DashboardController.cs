@@ -15,7 +15,7 @@ namespace JobMS.Controllers
         {
             _context = context;
         }
-        [Authorize]
+       [Authorize(Roles = "Administrator,Employer")]
         public async Task<IActionResult> Index()
         {
             // KPI Calculations

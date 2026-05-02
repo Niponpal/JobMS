@@ -89,8 +89,15 @@ public class AccountController : Controller
         if (!ModelState.IsValid)
             return View(model);
 
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user == null)
+        {
+            TempData["error"] = "Invalid login attempt.";
+            return View(model);
+        }
+
         var result = await _signInManager.PasswordSignInAsync(
-            model.Email,
+            user,
             model.Password,
             isPersistent: false,
             lockoutOnFailure: false
@@ -98,8 +105,15 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleName = roles.FirstOrDefault();
+
             TempData["success"] = "Login successful!";
-            return RedirectToAction("Index", "Dashboard");
+
+            if (roleName == "Employer" || roleName == "Administrator")
+                return RedirectToAction("Index", "Dashboard");
+
+            return RedirectToAction("Index", "Home");
         }
 
         TempData["error"] = "Invalid login attempt.";
