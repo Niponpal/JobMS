@@ -5,6 +5,7 @@ using JobMS.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobMS.Controllers
 {
@@ -61,6 +62,7 @@ namespace JobMS.Controllers
 
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateOrEdit(Application application, IFormFile? ResumeFile, CancellationToken cancellationToken)
@@ -79,12 +81,17 @@ namespace JobMS.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // ?? FILE UPLOAD
-            if (ResumeFile != null)
+            // ?? Duplicate check FIRST
+            var exists = await _applicationRepository
+                .IsAlreadyAppliedAsync(application.JobId, user.Id, cancellationToken);
+
+            if (exists)
             {
-                application.ResumePath = await _fileService.Upload(ResumeFile, "uploads/resumes");
+                TempData["warning"] = "You already applied for this job!";
+                return RedirectToAction("Index", "Home");
             }
 
+            // ?? Model validation
             ModelState.Remove("User");
             ModelState.Remove("Job");
             ModelState.Remove("ApplicationId");
@@ -95,18 +102,14 @@ namespace JobMS.Controllers
                 return View(application);
             }
 
-            var exists = await _applicationRepository.IsAlreadyAppliedAsync(
-                application.JobId,
-                user.Id,
-                cancellationToken);
-
-            if (exists)
-            {
-                TempData["warning"] = "You already applied for this job!";
-                return RedirectToAction("Index", "Home");
-            }
-
+            // ?? Set user
             application.UserId = user.Id;
+
+            // ?? File upload AFTER validation
+            if (ResumeFile != null)
+            {
+                application.ResumePath = await _fileService.Upload(ResumeFile, "uploads/resumes");
+            }
 
             try
             {
@@ -114,11 +117,13 @@ namespace JobMS.Controllers
                 {
                     application.ApplicationId = "APP-" + DateTime.Now.Ticks;
                     await _applicationRepository.AddApplicationAsync(application, cancellationToken);
+
                     TempData["success"] = "Application submitted successfully!";
                 }
                 else
                 {
                     await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
+
                     TempData["success"] = "Application updated successfully!";
                 }
             }
@@ -129,6 +134,77 @@ namespace JobMS.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateOrEdit(Application application, IFormFile? ResumeFile, CancellationToken cancellationToken)
+        //{
+        //    var job = await _jobRepository.GetJobsByIdAsync(application.JobId, cancellationToken);
+        //    if (job == null)
+        //    {
+        //        TempData["error"] = "Invalid job!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        TempData["error"] = "Please login first!";
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    // ?? FILE UPLOAD
+        //    if (ResumeFile != null)
+        //    {
+        //        application.ResumePath = await _fileService.Upload(ResumeFile, "uploads/resumes");
+        //    }
+
+        //    ModelState.Remove("User");
+        //    ModelState.Remove("Job");
+        //    ModelState.Remove("ApplicationId");
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.JobTitle = job.JobTitle;
+        //        return View(application);
+        //    }
+
+        //    var exists = await _applicationRepository.IsAlreadyAppliedAsync(
+        //        application.JobId,
+        //        user.Id,
+        //        cancellationToken);
+
+
+
+        //    if (exists)
+        //    {
+        //        TempData["warning"] = "You already applied for this job!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    application.UserId = user.Id;
+
+        //    try
+        //    {
+        //        if (application.Id == 0)
+        //        {
+        //            application.ApplicationId = "APP-" + DateTime.Now.Ticks;
+        //            await _applicationRepository.AddApplicationAsync(application, cancellationToken);
+        //            TempData["success"] = "Application submitted successfully!";
+        //        }
+        //        else
+        //        {
+        //            await _applicationRepository.UpdateApplicationAsync(application, cancellationToken);
+        //            TempData["success"] = "Application updated successfully!";
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        TempData["error"] = "Something went wrong while submitting!";
+        //    }
+
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Details(long id, CancellationToken cancellationToken)
