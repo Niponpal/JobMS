@@ -34,35 +34,6 @@ public class AccountController : Controller
         return View(new RegisterViewModel());
     }
 
-    // ================= REGISTER POST =================
-    //[HttpPost]
-    //[AllowAnonymous]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> Register(RegisterViewModel model)
-    //{
-    //    if (!ModelState.IsValid)
-    //        return View(model);
-
-    //    var result = await _authService.Register(model);
-
-    //    if (!result.Success)
-    //    {
-    //        result.Errors.ForEach(e => ModelState.AddModelError("", e));
-    //        TempData["error"] = "Registration failed!";
-    //        return View(model);
-    //    }
-
-    //    // AUTO LOGIN AFTER REGISTER
-    //    var user = await _userManager.FindByEmailAsync(model.Email);
-
-    //    if (user != null)
-    //    {
-    //        await _signInManager.SignInAsync(user, isPersistent: false);
-    //    }
-
-    //    TempData["success"] = "Registration successful!";
-    //    return RedirectToAction("Index", "Dashboard");
-    //}
 
     [HttpPost]
     [AllowAnonymous]
