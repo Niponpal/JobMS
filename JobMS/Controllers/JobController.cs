@@ -1,5 +1,6 @@
 ﻿using JobMS.Models;
 using JobMS.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobMS.Controllers;
@@ -12,14 +13,14 @@ public class JobController : Controller
     {
         _jobRepository = jobRepository;
     }
-
+    [Authorize(Roles = "Administrator,Employer")]
     [HttpGet]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
         var jobs = await _jobRepository.GetAllJobsAsync(cancellationToken);
         return View(jobs);
     }
-
+    [Authorize(Roles = "Administrator,Employer")]
     [HttpGet]
     public async Task<IActionResult> CreateOrEdit(long id, CancellationToken cancellationToken)
     {
@@ -39,6 +40,7 @@ public class JobController : Controller
         }
     }
 
+    [Authorize(Roles = "Administrator,Employer")]
     [HttpPost]
     public async Task<IActionResult> CreateOrEdit(Job job, CancellationToken cancellationToken)
     {
@@ -63,6 +65,8 @@ public class JobController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Administrator,Employer")]
+
     [HttpPost]
     public async Task<IActionResult> Delete(long id, CancellationToken cancellationToken)
     {
@@ -86,6 +90,8 @@ public class JobController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [Authorize(Roles = "Administrator,Employer")]
 
     [HttpGet]
     public async Task<IActionResult> Details(long id, CancellationToken cancellationToken)
