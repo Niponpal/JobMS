@@ -212,7 +212,7 @@
                                         {
                                             @(User.Identity.Name.Length > 20
                                                                                 ? User.Identity.Name.Substring(0, 17) + "..."
-                                                                                : User.Identity.Name)
+                                                                                : User.Identity.Name) 
                                                                         }
                                         else
                                         {
@@ -223,9 +223,10 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="/Account/Profile">
+                                    <a class="dropdown-item" asp-controller="User" asp-action="Details" >
                                         <i class="fas fa-user-circle me-2"></i> My Profile
-                                    </a>
+                                    </a> 
+                                
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Account/Settings">
