@@ -18,6 +18,14 @@ public class UserController : Controller
         _fileService = fileService;
     }
 
+
+    [HttpGet]
+    public IActionResult Index()
+    {
+        var users = _userManager.Users.ToList();
+        return View(users);
+    }
+
     // ✅ Show user details
     [HttpGet]
     public async Task<IActionResult> Details()

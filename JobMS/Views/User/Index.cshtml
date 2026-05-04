@@ -1,0 +1,32 @@
+﻿@model IEnumerable<JobMS.Auth_IdentityModel.User>
+
+<h2 class="text-center">All Users</h2>
+
+<table class="table table-bordered text-center align-middle">
+    <thead class="text-center">
+        <tr>
+            <th>Image</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(user.ImageUrl))
+                    {
+                        <img src="@user.ImageUrl" width="50" height="50" style="border-radius:50%" />
+                    }
+                </td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-info">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
