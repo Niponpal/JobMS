@@ -217,7 +217,7 @@
                     </a>
                 </li> *@
 
-                <li class="nav-item">
+                @* <li class="nav-item">
                     <a class="nav-link" asp-controller="Report" asp-action="ApplicationStatusReport">
                         <i class="fas fa-chart-pie"></i>
                         <span>Application Report</span>
@@ -235,6 +235,23 @@
                     <a class="nav-link" asp-controller="Report" asp-action="DateWiseReport">
                         <i class="fas fa-calendar"></i>
                         <span>Date Wise Report</span>
+                    </a>
+                </li> *@
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="ApplicationStatusReport">
+                        <i class="fas fa-chart-pie"></i> Application Report
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="JobPostingReport">
+                        <i class="fas fa-briefcase"></i> Job Report
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="DateWiseReport">
+                        <i class="fas fa-calendar"></i> Date Wise Report
                     </a>
                 </li>
 

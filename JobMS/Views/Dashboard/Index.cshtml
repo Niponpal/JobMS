@@ -1,4 +1,8 @@
-﻿@{
+﻿@using JobMS.Helper
+@using JobMS.Service
+@inject ISignInHelper SignInHelper
+@inject IRolePermissionService RolePermissionService
+@{
     ViewData["Title"] = "Dashboard";
 }
 
