@@ -1,9 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Application Report";
-}
+﻿@model IEnumerable<ApplicationStatusVM>
 
 <h2>Application Status Report</h2>
 
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Status</td>
+                <td>@item.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <a asp-action="DownloadApplicationStatusReport" class="btn btn-primary">
-    <i class="fas fa-download"></i> Download PDF
+    Download PDF
 </a>

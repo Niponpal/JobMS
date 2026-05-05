@@ -1,9 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Job Report";
-}
+﻿@model IEnumerable<JobPostingVM>
 
 <h2>Job Posting Report</h2>
 
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.JobTitle</td>
+                <td>@item.CompanyName</td>
+                <td>@item.JobLocation</td>
+                <td>@item.SalaryRange</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedAt.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <a asp-action="DownloadJobPostingReport" class="btn btn-success">
-    <i class="fas fa-download"></i> Download PDF
+    Download PDF
 </a>
