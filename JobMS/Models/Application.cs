@@ -47,5 +47,7 @@ namespace JobMS.Models
 
         [ForeignKey("JobId")]
         public Job Job { get; set; }
+
+        public string? Status { get; set; }  // ✅ ADD THIS
     }
 }

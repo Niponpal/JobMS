@@ -209,12 +209,36 @@
                         <span>All Users</span>
                     </a>
                 </li>
-                <li class="nav-item">
+
+                @* <li class="nav-item">
                     <a class="nav-link" asp-controller="Reports" asp-action="Index">
                         <i class="fas fa-chart-bar"></i>
                         <span>Reports</span>
                     </a>
+                </li> *@
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="ApplicationStatusReport">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Application Report</span>
+                    </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="JobPostingReport">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Job Report</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report" asp-action="DateWiseReport">
+                        <i class="fas fa-calendar"></i>
+                        <span>Date Wise Report</span>
+                    </a>
+                </li>
+
+
             </ul>
         </div>
         <div class="mt-auto p-3">

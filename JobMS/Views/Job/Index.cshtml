@@ -108,7 +108,7 @@
 
                                 }
 
-                                @if (RolePermissionService.CanEdit(role))
+                                @if (RolePermissionService.CanDelete(role))
                                 {
                                 <form asp-action="Delete" method="post" asp-route-id="@job.Id"
                                       onsubmit="return confirm('Are you sure you want to permanently delete this job?');"
