@@ -69,7 +69,7 @@ public class AccountController : Controller
         }
 
         TempData["success"] = "Registration successful!";
-        return RedirectToAction("Index", "Dashboard");
+        return RedirectToAction("Index", "Home");
     }
 
     // ================= LOGIN GET =================
