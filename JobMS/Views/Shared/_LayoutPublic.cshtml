@@ -185,6 +185,18 @@
                         <a class="nav-link" asp-controller="Home" asp-action="MyJobs">My Jobs</a>
                     </li>
 
+                    <!-- 🔥 ADD THIS HERE -->
+                    @if (User.Identity?.IsAuthenticated == true &&
+                                        (User.IsInRole("Administrator") || User.IsInRole("Employer")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                                <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                            </a>
+                        </li>
+                    }
+
+
                     <!-- Auth Section -->
                     @if (User.Identity?.IsAuthenticated == true)
                     {
@@ -239,7 +251,7 @@
                                         @Html.AntiForgeryToken()
 
                                         <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                            <i class="fas fa-sign-out-alt me-2"></i> Logouts
                                         </button>
                                     </form>
                                 </li>
