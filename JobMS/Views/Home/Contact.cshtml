@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container py-5">
+    <div class="row align-items-center">
+
+        <!-- Left Side -->
+        <div class="col-lg-5 mb-4">
+            <div class="contact-info p-4 rounded shadow-sm text-white">
+                <h2 class="fw-bold mb-3">Get In Touch</h2>
+                <p class="mb-4">
+                    Have questions about jobs, employers, or applications?
+                    Contact the JobMS support team anytime.
+                </p>
+
+                <div class="mb-3 d-flex align-items-center">
+                    <i class="fa-solid fa-location-dot me-3 fs-4"></i>
+                    <span>Dhaka, Bangladesh</span>
+                </div>
+
+                <div class="mb-3 d-flex align-items-center">
+                    <i class="fa-solid fa-envelope me-3 fs-4"></i>
+                    <span>support@jobms.com</span>
+                </div>
+
+                <div class="mb-3 d-flex align-items-center">
+                    <i class="fa-solid fa-phone me-3 fs-4"></i>
+                    <span>+880 1234-567890</span>
+                </div>
+
+                <div class="social-icons mt-4">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">Contact Us</h2>
+
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control custom-input" placeholder="Enter your name">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control custom-input" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-control custom-input" placeholder="Enter subject">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Message</label>
+                            <textarea rows="5" class="form-control custom-input" placeholder="Write your message"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-contact w-100 py-2">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #f4f7fc;
+    }
+
+    .contact-info {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        min-height: 100%;
+    }
+
+    .contact-info i {
+        width: 35px;
+    }
+
+    .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+        border-radius: 50%;
+        margin-right: 10px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+        background: white;
+        color: #0d6efd;
+        transform: translateY(-3px);
+    }
+
+    .custom-input {
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #dcdcdc;
+        transition: 0.3s;
+    }
+
+    .custom-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25);
+    }
+
+    .btn-contact {
+        background: #0d6efd;
+        color: white;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn-contact:hover {
+        background: #0b5ed7;
+        color: white;
+    }
+</style>
