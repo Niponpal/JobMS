@@ -42,6 +42,12 @@ namespace JobMS.Controllers
             return NotFound();
         }
 
+        public async Task<IActionResult> Contact(CancellationToken cancellationToken)
+        {
+
+            return View();
+        }
+
         public async Task<IActionResult> MyJobs(CancellationToken cancellationToken)
         {
             var user = await _userManager.GetUserAsync(User);
