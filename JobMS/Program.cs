@@ -58,6 +58,8 @@ app.UseRouting();
 app.UseAuthentication();   // ✅ MUST
 app.UseAuthorization();
 
+app.UseStatusCodePagesWithReExecute("/Home/Error404");
+
 // ? Routing
 app.MapControllerRoute(
     name: "default",
