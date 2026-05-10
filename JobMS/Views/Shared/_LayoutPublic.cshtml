@@ -118,6 +118,24 @@
             padding: 0.5rem 1.25rem;
             border-radius: 50px;
         }
+
+        /* Active Nav Link */
+        .navbar .nav-link.active {
+            color: var(--teal) !important;
+            font-weight: 600;
+        }
+
+            .navbar .nav-link.active::after {
+                content: '';
+                position: absolute;
+                left: 8px;
+                right: 8px;
+                bottom: -4px;
+                height: 2px;
+                background: var(--teal);
+                border-radius: 10px;
+            }
+
         /* Profile Dropdown */
         .profile-dropdown .dropdown-menu {
             background: rgba(15, 23, 42, 0.95);
@@ -169,22 +187,6 @@
             .navbar .nav-link:hover {
                 color: var(--teal) !important;
             }
-
-            .navbar .nav-link.active {
-                color: var(--teal) !important;
-                font-weight: 600;
-            }
-
-                .navbar .nav-link.active::after {
-                    content: '';
-                    position: absolute;
-                    left: 8px;
-                    right: 8px;
-                    bottom: -4px;
-                    height: 2px;
-                    background: var(--teal);
-                    border-radius: 10px;
-                }
     </style>
     @RenderSection("Styles", required: false)
 </head>
@@ -198,40 +200,52 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    @* <li class="nav-item"><a class="nav-link active" href="/Job">Jobs</a></li> *@
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="index">Jobs</a></li>
-                    @* <li class="nav-item"><a class="nav-link" href="/Home/About">About</a></li> *@
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")"
+                           asp-controller="Home" asp-action="Index">Home</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="MyJobs">My Jobs</a>
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")"
+                           asp-controller="Home" asp-action="Index">Jobs</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Contact">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "About" ? "active" : "")"
+                           asp-controller="Home" asp-action="About">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "MyJobs" ? "active" : "")"
+                           asp-controller="Home" asp-action="MyJobs">My Jobs</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Contact" ? "active" : "")"
+                           asp-controller="Home" asp-action="Contact">
                             <i class="fas fa-envelope me-1"></i> Contact
                         </a>
                     </li>
 
-                    <!-- 🔥 ADD THIS HERE -->
+                    <!-- Dashboard -->
                     @if (User.Identity?.IsAuthenticated == true &&
                                         (User.IsInRole("Administrator") || User.IsInRole("Employer")))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Dashboard" ? "active" : "")"
+                               asp-controller="Dashboard" asp-action="Index">
                                 <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                             </a>
                         </li>
                     }
 
-
                     <!-- Auth Section -->
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <!-- Logged In: Profile Dropdown -->
                         <li class="nav-item ms-4 profile-dropdown dropdown">
                             <a class="nav-link d-flex align-items-center gap-2 dropdown-toggle" href="#"
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -253,23 +267,16 @@
                                         }
                                         else if (User.Identity?.Name != null)
                                         {
-                                            @(User.Identity.Name.Length > 20
-                                                                                ? User.Identity.Name.Substring(0, 17) + "..."
-                                                                                : User.Identity.Name) 
-                                                                        }
-                                        else
-                                        {
-                                            @User.Identity?.Name
+                                            @(User.Identity.Name.Length > 20 ? User.Identity.Name.Substring(0, 17) + "..." : User.Identity.Name)
                                         }
                                     </span>
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="User" asp-action="Details" >
+                                    <a class="dropdown-item" asp-controller="User" asp-action="Details">
                                         <i class="fas fa-user-circle me-2"></i> My Profile
-                                    </a> 
-                                
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Account/Settings">
@@ -280,9 +287,8 @@
                                 <li>
                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                         @Html.AntiForgeryToken()
-
                                         <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fas fa-sign-out-alt me-2"></i> Logouts
+                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
                                         </button>
                                     </form>
                                 </li>
@@ -291,7 +297,6 @@
                     }
                     else
                     {
-                        <!-- Not Logged In: Login + Register -->
                         <li class="nav-item ms-3">
                             <a class="nav-link auth-btn btn btn-outline-light" href="/Account/Login">
                                 <i class="fas fa-sign-in-alt me-1"></i> Login
@@ -328,22 +333,17 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Theme Toggle Logic
+        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
-
 
         function setTheme(theme) {
             html.setAttribute('data-bs-theme', theme);
             localStorage.setItem('theme', theme);
-            if (theme === 'light') {
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
-            } else {
-                themeToggle.classList.remove('fa-sun');
-                themeToggle.classList.add('fa-moon');
-            }
+            themeToggle.classList.toggle('fa-moon', theme === 'dark');
+            themeToggle.classList.toggle('fa-sun', theme === 'light');
         }
 
         const savedTheme = localStorage.getItem('theme');
@@ -356,16 +356,12 @@
         }
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-bs-theme');
-            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            const current = html.getAttribute('data-bs-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
         });
     </script>
-    
 
-    <!-- ⭐ Notification Partial -->
     <partial name="_Notification" />
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
